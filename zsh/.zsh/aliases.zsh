@@ -1,0 +1,17 @@
+############################################################
+# よく使うalias
+############################################################
+
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+alias ..='cd ..'
+alias ...='cd ../..'
+
+alias gs='git status'
+alias gl='git log --oneline --graph --decorate'
+alias gp='git pull'
+alias gd='git diff'
+
+alias p='pwd'
