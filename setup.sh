@@ -20,7 +20,13 @@ echo "=== install dotfiles ==="
 
 DOTFILES_DIR="$HOME/ghq/github.com/katsuwo20/mydotfiles"
 cd "$DOTFILES_DIR"
+
+echo "Applying zsh settings"
 stow -v -t ~ zsh
+
+echo "Applying git settings"
+stow -v -t ~ git
+
 
 echo "=== change defautl shell ==="
 
