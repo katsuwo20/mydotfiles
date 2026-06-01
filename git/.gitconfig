@@ -1,6 +1,6 @@
-[user]
-    name = Takuma Isono
-    email = takumakatsuwo@gmail.com
-
 [core]
     editor = vim
+
+# ローカル設定を読み込む
+[include]
+    path = ~/.gitconfig.local

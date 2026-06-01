@@ -33,22 +33,21 @@ echo "=== change defautl shell ==="
 
 chsh -s $(which zsh)
 
-echo "=== Git setting ==="
-# user.name 確認
-if ! git config --global user.name >/dev/null; then
+echo "=== Git Local setting ==="
+LOCAL_GITCONFIG="$HOME/.gitconfig.local"
+if [ ! -f "$LOCAL_GITCONFIG" ]; then
     read -p "Git user.name: " GIT_NAME
-    git config --global user.name "$GIT_NAME"
+    read -p "Git user.email: " GIT_EMAIL
+    cat <<EOF > "$LOCAL_GITCONFIG"
+[user]
+    name = $GIT_NAME
+    email = $GIT_EMAIL
+EOF
+    echo "Created $LOCAL_GITCONFIG"
 else
-    echo "git user.name already set"
+    echo "git local config already exists"
 fi
 
-# user.email 確認
-if ! git config --global user.email >/dev/null; then
-    read -p "Git user.email: " GIT_EMAIL
-    git config --global user.email "$GIT_EMAIL"
-else
-    echo "git user.email already set"
-fi
 
 
 echo "=== done ==="
