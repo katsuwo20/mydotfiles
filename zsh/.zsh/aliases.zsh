@@ -15,3 +15,8 @@ alias gp='git pull'
 alias gd='git diff'
 
 alias p='pwd'
+
+
+# python系
+alias python='python3'
+alias pip='pip3'
