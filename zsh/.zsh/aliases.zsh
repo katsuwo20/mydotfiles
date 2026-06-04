@@ -16,6 +16,8 @@ alias gd='git diff'
 
 alias p='pwd'
 
+# lazygit
+alias lg='lazygit'
 
 # python系
 alias python='python3'
