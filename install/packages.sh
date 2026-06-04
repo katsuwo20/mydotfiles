@@ -14,6 +14,9 @@ sudo apt install -y \
     git \
     curl \
     fzf \
-    stow
+    stow \
+    python3 \
+    python3-venv \
+    python3-pip \
 
 success packages "Packages installed successfully"
