@@ -3,6 +3,7 @@
 
 set -e
 
+# 共通関数の読み込み
 source "$FUNCTIONS_DIR/utils.sh"
 
 log packages "Installing packages..."
