@@ -1,14 +1,53 @@
 #!/usr/bin/env bash
 
-set -e
+set -euo pipefail
+
+readonly ENV_CF="CF"
+readonly ENV_WSL="WSL"
+readonly ENV_WINDOWS="Windows"
+readonly ENV_LINUX="Linux"
+readonly ENV_UNKNOWN="unknown"
 
 # ファイルの場所を特定
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+export DOTFILES_DIR
 
 # 共通関数の読み込み
+source "$DOTFILES_DIR/functions/utils.sh"
+
+# functionsディレクトリ内の関数の読み込み
 FUNCTIONS_DIR="$DOTFILES_DIR/functions"
 export FUNCTIONS_DIR
-source "$FUNCTIONS_DIR/utils.sh"
+for func in "$FUNCTIONS_DIR"/*.sh; do
+    [[ "$func" == *utils.sh ]] && continue # utils.shはすでに読み込んでいるのでスキップ
+    source "$func"
+done
+
+# 環境を判定
+ENV=$(detect_env)
+if [[ "$ENV" == "$ENV_UNKNOWN" ]]; then
+    error "env" "Could not detect environment. Exiting."
+    exit 1
+else
+    success "env" "Detected environment: $ENV"
+fi
+
+case "$ENV" in
+    "$ENV_CF")
+        warn "env" "CF environment does not support this setup script."
+        exit 0
+        ;;
+    "$ENV_WSL")
+        log "env" "Running in WSL environment. Proceeding with setup."
+        ;;
+    "$ENV_WINDOWS")
+        warn "env" "Windows environment does not support this setup script."
+        exit 0
+        ;;
+    "$ENV_LINUX")
+        log "env" "Running in Linux environment. Proceeding with setup."
+        ;;
+esac
 
 # 各種ツールをインストール
 log "setup" "Installing tools and packages..."
