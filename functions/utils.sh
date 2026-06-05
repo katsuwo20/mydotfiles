@@ -11,13 +11,13 @@ readonly COLOR_GREEN="\033[1;32m"
 log() {
   local tag="$1"
   local message="$2"
-  printf "${COLOR_BLUE}[%s]${COLOR_RESET} %s\n" "$tag" "$message"
+  printf "${COLOR_BLUE}[%s]${COLOR_RESET} %s\n" "$tag" "$message" >&2
 }
 
 warn() {
   local tag="$1"
   local message="$2"
-  printf "${COLOR_YELLOW}[%s] WARN:${COLOR_RESET} %s\n" "$tag" "$message"
+  printf "${COLOR_YELLOW}[%s] WARN:${COLOR_RESET} %s\n" "$tag" "$message" >&2
 }
 
 error() {
@@ -29,5 +29,5 @@ error() {
 success() {
   local tag="$1"
   local message="$2"
-  printf "${COLOR_GREEN}[%s]${COLOR_RESET} %s\n" "$tag" "$message"
+  printf "${COLOR_GREEN}[%s]${COLOR_RESET} %s\n" "$tag" "$message" >&2
 }
