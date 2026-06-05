@@ -1,18 +1,18 @@
 # detect_env.sh
 
-readonly TAG=env
+readonly TAG_detect_env="env"
 
 detect_env() {
   # --- ① CF判定（最優先） ---
   # LSF系 or ホスト名で判定
   if [[ -n "${LSB_JOBID:-}" ]] || [[ -n "${LSF_ENVDIR:-}" ]]; then
-    log "$TAG" "LSB_JOBID or LSF_ENVDIR environment variable found"
+    log "$TAG_detect_env" "LSB_JOBID or LSF_ENVDIR environment variable found"
     echo "CF"
     return
   fi
 
   if hostname | grep -qi "cf"; then
-    log "$TAG" "hostname contains 'cf'"
+    log "$TAG_detect_env" "hostname contains 'cf'"
     echo "CF"
     return
   fi
@@ -20,14 +20,14 @@ detect_env() {
   # --- ② WSL判定 ---
   # Linuxっぽく見えるので明示的に分岐する必要あり
   if grep -qi microsoft /proc/version 2>/dev/null; then
-    log "$TAG" "microsoft found in /proc/version"
+    log "$TAG_detect_env" "microsoft found in /proc/version"
     echo "WSL"
     return
   fi
 
   # unameでも補助判定
   if uname -r | grep -qi "microsoft"; then
-    log "$TAG" "microsoft found in uname -r"
+    log "$TAG_detect_env" "microsoft found in uname -r"
     echo "WSL"
     return
   fi
@@ -35,7 +35,7 @@ detect_env() {
   # --- ③ Windows (Git Bash / MSYS / Cygwinなど) ---
   case "${OSTYPE:-}" in
     msys*|cygwin*|win32*)
-      log "$TAG" "OSTYPE : ${OSTYPE}"
+      log "$TAG_detect_env" "OSTYPE : ${OSTYPE}"
       echo "Windows"
       return
       ;;
@@ -43,7 +43,7 @@ detect_env() {
 
   # --- ④ Linuxネイティブ ---
   if [[ "${OSTYPE:-}" == "linux-gnu"* ]]; then
-    log "$TAG" "OSTYPE : ${OSTYPE}"
+    log "$TAG_detect_env" "OSTYPE : ${OSTYPE}"
     echo "Linux"
     return
   fi
