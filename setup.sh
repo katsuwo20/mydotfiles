@@ -10,16 +10,20 @@ readonly ENV_UNKNOWN="unknown"
 
 # ファイルの場所を特定
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+FUNCTIONS_DIR="$DOTFILES_DIR/functions"
+BIN_DIR="$DOTFILES_DIR/bin"
+
 export DOTFILES_DIR
+export FUNCTIONS_DIR
+export BIN_DIR
 
 # 共通関数の読み込み
-source "$DOTFILES_DIR/functions/utils.sh"
+source "$FUNCTIONS_DIR/utils.sh"
 
 # functionsディレクトリ内の関数の読み込み
-FUNCTIONS_DIR="$DOTFILES_DIR/functions"
-export FUNCTIONS_DIR
 for func in "$FUNCTIONS_DIR"/*.sh; do
     [[ "$func" == *utils.sh ]] && continue # utils.shはすでに読み込んでいるのでスキップ
+    log "setup" "Loading function from $func"
     source "$func"
 done
 
@@ -32,6 +36,7 @@ else
     success "env" "Detected environment: $ENV"
 fi
 
+# 環境に応じて処理を変更
 case "$ENV" in
     "$ENV_CF")
         warn "env" "CF environment does not support this setup script."
@@ -39,40 +44,24 @@ case "$ENV" in
         ;;
     "$ENV_WSL")
         log "env" "Running in WSL environment. Proceeding with setup."
+        # Linux環境向けのインストール処理を実行
+        install_for_linux
+
+        # zshの設定を行う
+        setup_zsh
         ;;
     "$ENV_WINDOWS")
         warn "env" "Windows environment does not support this setup script."
         exit 0
         ;;
     "$ENV_LINUX")
-        log "env" "Running in Linux environment. Proceeding with setup."
+        warn "env" "Linux environment does not support this setup script."
+        exit 0
         ;;
 esac
 
-# 各種ツールをインストール
-log "setup" "Installing tools and packages..."
-INSTALL_DIR="$DOTFILES_DIR/install"
-INSTALL_SCRIPTS=(
-    "packages.sh"
-    "lazygit.sh"
-)
-for script in "${INSTALL_SCRIPTS[@]}"; do
-    "$INSTALL_DIR/$script"
-done
-
-log "locale" "Setting locale to ja_JP.UTF-8"
-sudo locale-gen ja_JP.UTF-8
-sudo update-locale LANG=ja_JP.UTF-8
-
 
 cd "$DOTFILES_DIR"
-
-log "zsh" "Applying zsh settings ..."
-stow -v -t ~ zsh
-
-log "zsh" "Changing default shell to zsh"
-chsh -s $(which zsh)
-
 
 log "git" "Applying git settings ..."
 stow -v -t ~ git
@@ -103,6 +92,15 @@ git config --file "$HOME/.gitconfig.local" --unset-all safe.directory 2>/dev/nul
 git config --file "$HOME/.gitconfig.local" --add safe.directory "$HOME/ghq/*"
 log "git" "safe.directory set to $HOME/ghq"
 
+
+# Configの設定
+cd "$DOTFILES_DIR"
+log "config" "Setting up config ..."
+stow -v -t ~ config
+
+
+# 最後に元のディレクトリに戻る
+cd "$DOTFILES_DIR"
 
 success "setup" "Setup completed successfully"
 log "setup" "Please restart WSL"
