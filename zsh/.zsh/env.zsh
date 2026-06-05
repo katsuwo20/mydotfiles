@@ -5,7 +5,7 @@
 # バイナリファイルのパスを設定
 . "$HOME/.local/bin/env"
 
-source "$DOTFILES_DIR/config/fzf/fzf.sh"
+source "$HOME/.config/fzf/fzf.sh"
 
 # uv: システム証明書を使用（企業プロキシ等）
 export UV_SYSTEM_CERTS=1
