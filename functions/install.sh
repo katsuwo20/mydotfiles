@@ -18,6 +18,13 @@ install_for_linux() {
         "packages.sh"
         "lazygit.sh"
     )
+
+    log "$TAG_install" "check -d/--download option"
+    if [[ "$(get_opt "download")" == "true" ]]; then
+        log "$TAG_install" "Download option detected."
+        INSTALL_SCRIPTS+=("zsh_packs.sh")
+    fi
+
     for script in "${INSTALL_SCRIPTS[@]}"; do
         log "$TAG_install" "Running $script..."
         "$INSTALL_DIR/$script"
