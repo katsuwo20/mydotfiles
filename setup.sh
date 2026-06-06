@@ -19,10 +19,14 @@ export BIN_DIR
 
 # 共通関数の読み込み
 source "$FUNCTIONS_DIR/utils.sh"
+log "setup" "Loading function from $FUNCTIONS_DIR/parse_args.sh"
+source "$FUNCTIONS_DIR/parse_args.sh" "$@"
 
 # functionsディレクトリ内の関数の読み込み
 for func in "$FUNCTIONS_DIR"/*.sh; do
-    [[ "$func" == *utils.sh ]] && continue # utils.shはすでに読み込んでいるのでスキップ
+    [[ "$func" == *utils.sh ]] && continue # utils.shは既に読み込んでいるのでスキップ
+    [[ "$func" == *parse_args.sh ]] && continue # parse_args.shは既に読み込んでいるのでスキップ
+
     log "setup" "Loading function from $func"
     source "$func"
 done
