@@ -1,0 +1,154 @@
+{
+  "security.workspace.trust.enabled": false,
+  "files.autoGuessEncoding": true,
+
+  "files.trimFinalNewlines": true, //最終行移行の無駄な行を削除
+  "files.insertFinalNewline": true, //最終行に改行を挿入する
+  "files.trimTrailingWhitespace": true, //行の末尾にある無駄な空白を削除
+  "breadcrumbs.enabled": true, //パンくずリスト表示
+  "workbench.tree.renderIndentGuides": "always", //ツリーのインデントガイド表示
+  "workbench.reduceMotion": "on", //ツリーのアニメーション表示
+
+  /// :
+  // proxy
+  "http.proxy": "http://proxy.kanto.sony.co.jp:10080",
+  "https.proxy": "https://proxy.kanto.sony.co.jp:10080",
+  // asciidoc
+  "asciidoc.asciidoctor_command": "asciidoctor -r asciidoctor-diagram -a outdir=.asciidoctor -a imagesdir=resources -a imagesoutdir=resources",
+  "asciidoc.preview.useEditorStyle": false,
+  "asciidoc.use_asciidoctor_js": false,
+
+  "workbench.startupEditor": "none",
+  "editor.renderWhitespace": "all",
+  "python.analysis.extraPaths": [
+    "C:/Users/0107411026/Desktop/hoge/python/Concur/00.environment/Concur/Lib/site-packages",
+    "C:/Users/0107411026/Desktop/hoge/python/GetTempPass/00.environment/TempPass/Lib/site-packages",
+    "C:/Users/0107411026/Desktop/hoge/python/NoticeEvent_v2.2/00.environment/Outlook/Lib/site-packages",
+  ],
+  "terminal.integrated.profiles.windows": {
+    "PowerShell": {
+      "source": "PowerShell",
+      "icon": "terminal-powershell",
+      "path": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    },
+    "Command Prompt": {
+      "path": [
+        "${env:windir}\\Sysnative\\cmd.exe",
+        "${env:windir}\\System32\\cmd.exe",
+      ],
+      "args": [],
+      "icon": "terminal-cmd",
+    },
+    "Git Bash": {
+      "source": "Git Bash",
+      "icon": "terminal-git-bash",
+    },
+    "PowerShell 7": {
+      "path": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+    },
+  },
+  "terminal.integrated.defaultProfile.windows": "PowerShell 7",
+  "diffEditor.maxComputationTime": 0,
+  "hexeditor.columnWidth": 16,
+  "hexeditor.showDecodedText": true,
+  "hexeditor.defaultEndianness": "little",
+  "hexeditor.inspectorType": "aside",
+  "workbench.editorAssociations": {
+    "*.bin": "hexEditor.hexedit",
+  },
+  "python.createEnvironment.trigger": "off",
+  "redhat.telemetry.enabled": true,
+  "atlascode.jira.enabled": false,
+  "[dockercompose]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "editor.autoIndent": "advanced",
+    "editor.defaultFormatter": "redhat.vscode-yaml",
+  },
+  "[github-actions-workflow]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml",
+  },
+  "extensions.experimental.affinity": {
+    "asvetliakov.vscode-neovim": 1,
+  },
+
+  "workbench.editor.wrapTabs": true,
+  "github.copilot.nextEditSuggestions.enabled": true,
+
+  "terminal.integrated.allowChords": false,
+
+  // ****************************
+  // GitHub Copilotの設定
+  // ****************************
+  // Agengt Modeを有効にする
+  "chat.agent.enabled": true,
+  // Agent Modeでの最大リクエスト数を設定（必要に応じて調整）
+  "chat.agent.maxRequests": 1000000,
+
+  "workbench.colorTheme": "Dark+",
+  "chat.viewSessions.orientation": "stacked",
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false,
+    "systemverilog": true
+  },
+  "chat.tools.terminal.autoApprove": {
+    "/^cd \"c:\\\\Users\\\\0107411026\\\\Desktop\\\\hoge\\\\python\\\\OutlookControl\\\\00\\.environment\" ; if \\(-not \\(Test-Path \"OutlookControlEnv\"\\)\\) \\{ python -m venv OutlookControlEnv \\} ; & \"\\.\\\\OutlookControlEnv\\\\Scripts\\\\Activate\\.ps1\" ; pip install -r requirements\\.txt 2>&1 \\| Select-Object -Last 20$/": {
+      "approve": true,
+      "matchCommandLine": true,
+    },
+  },
+
+  "vim.vimrc.enable": true,
+  "vim.vimrc.path": "C:\\Vim\\.vimrc",
+  "vim.leader": " ",
+  "vim.useSystemClipboard": true,
+  "vim.handleKeys": {
+    "<Space>": true,
+    "<C-f>": false,
+    "<C-c>": false,
+    "<C-a>": false,
+    "<C-v>": false,
+    "<C-x>": false,
+    "<C-h>": false,
+    "<C-y>": false,
+    "<C-z>": false,
+    "<C-b>": false,
+    "<C-e>": false,
+    "<C-P>": false,
+  },
+
+  "vim.easymotion": true,
+
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<leader>", "s"],
+      "after": ["<leader>", "<leader>", "s"],
+    },
+    {
+      "before": ["<leader>", "w"],
+      "after": ["<leader>", "<leader>", "w"],
+    },
+    {
+      "before": ["<leader>", "e"],
+      "after": ["<leader>", "<leader>", "e"],
+    },
+    {
+      "before": ["<leader>", "f"],
+      "after": ["<leader>", "<leader>", "f"],
+    },
+  ],
+
+  "atlascode.bitbucket.enabled": false,
+  "gitlens.ai.model": "vscode",
+  "gitlens.ai.vscode.model": "copilot:gpt-4.1",
+  "files.eol": "\n",
+  "security.allowedUNCHosts": ["wsl.localhost"],
+  "powershell.promptToUpdatePowerShell": false,
+  "python.defaultInterpreterPath": "./50.Testing/31.IntegrationTest_CCSim/.venv/Scripts/python.exe",
+  "gitlab.duoCodeSuggestions.enabled": false,
+  "remote.autoForwardPortsSource": "hybrid",
+  "terminal.integrated.initialHint": false,
+}

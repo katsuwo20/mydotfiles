@@ -1,0 +1,43 @@
+// 既定値を上書きするには、このファイル内にキー バインドを挿入します
+[
+    {
+        // ターミナルを開く/閉じる
+        "key" : "ctrl+t",
+        "command": "workbench.action.togglePanel"
+    },
+    {
+        // ターミナル内で前のタブに移動
+        "key": "ctrl+shift+,",
+        "command": "workbench.action.terminal.focusPrevious",
+        "when": "terminalFocus"
+    },
+    {
+        // ターミナル内で次のタブに移動
+        "key": "ctrl+shift+.",
+        "command": "workbench.action.terminal.focusNext",
+        "when": "terminalFocus"
+    },
+
+    {
+        "key": "ctrl+j",
+        "command": "-workbench.action.togglePanel"
+    },
+    {
+        "key": "ctrl+k",
+        "command": "-workbench.action.terminal.clear"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "-workbench.action.gotoLine",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "workbench.action.terminal.sendSequence",
+        "args": {
+        "text": "\u0007"
+        },
+        "when": "terminalFocus"
+    }
+
+]

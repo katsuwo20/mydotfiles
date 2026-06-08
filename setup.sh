@@ -102,6 +102,11 @@ cd "$DOTFILES_DIR"
 log "config" "Setting up config ..."
 stow -v -t ~ config
 
+# WSL上では、dotfiles側のVS Code設定をWindows側User設定へ同期
+if [[ "$ENV" == "$ENV_WSL" ]]; then
+    setup_vscode_user_files
+fi
+
 
 # 最後に元のディレクトリに戻る
 cd "$DOTFILES_DIR"
