@@ -5,7 +5,11 @@
 # バイナリファイルのパスを設定
 . "$HOME/.local/bin/env"
 
+#fxf をshellに統合
 source "$HOME/.config/fzf/fzf.sh"
+
+# zoxideをshellに統合
+eval "$(zoxide init zsh)"
 
 # uv: システム証明書を使用（企業プロキシ等）
 export UV_SYSTEM_CERTS=1
