@@ -17,4 +17,4 @@ function ghq-cd() {
 }
 
 zle -N ghq-cd
-bindkey '^b' ghq-cd
+bindkey '^g' ghq-cd
