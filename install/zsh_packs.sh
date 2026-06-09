@@ -14,9 +14,15 @@ readonly TAG=zsh_package
 readonly NCURSES_VERSION="6.4"
 readonly ZSH_VERSION="5.9"
 
+readonly ZSH_DIR="$DOTFILES_DIR/bin/packages/zsh"
+
 
 # zshのパッケージをダウンロードするディレクトリに移動
-cd $DOTFILES_DIR/bin/packages/zsh
+mkdir -p "$ZSH_DIR"
+cd "$ZSH_DIR" || {
+    error "$TAG" "Faild to change directory to $ZSH_DIR"
+    exit 1
+}
 
 # フォルダをすべてリセット
 log "$TAG" "Clear in folder."
