@@ -53,6 +53,9 @@ case "$ENV" in
 
         # zshの設定を行う
         setup_zsh
+
+        # vimの設定を行う
+        setup_vim
         ;;
     "$ENV_WINDOWS")
         warn "env" "Windows environment does not support this setup script."
