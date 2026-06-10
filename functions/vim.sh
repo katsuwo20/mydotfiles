@@ -7,4 +7,7 @@ setup_vim() {
     log "$TAG_vim" "Applying vim settings ..."
     # vimの設定をホームディレクトリにシンボリックリンク
     stow -v -t ~ vim
+
+    # vimのundoディレクトリを作成
+    mkdir -p "$HOME/.cache/vim/undo"
 }
