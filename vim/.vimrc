@@ -63,14 +63,25 @@ let mapleader = " "
 " Windows 側で Ctrl+C / Ctrl+X したものを p で貼り付け可能
 set clipboard=unnamedplus
 
-augroup YankToClip
-  autocmd!
-  autocmd TextYankPost * if v:event.operator ==# 'y' | call system('clip.exe', getreg(v:event.regname ==# '' ? '"' : v:event.regname)) | endif
-augroup END
+" --- clipboard ---
+if executable('powershell.exe')
+  set clipboard=unnamedplus
 
-" p / P で Windows クリップボードから貼り付け（レジスタが空 or 古い場合にも対応）
-nnoremap <silent> p :let @"=substitute(system('powershell.exe -NoProfile -Command Get-Clipboard'), '\r\n\?', '\n', 'g')<CR>p
-nnoremap <silent> P :let @"=substitute(system('powershell.exe -NoProfile -Command Get-Clipboard'), '\r\n\?', '\n', 'g')<CR>P
+  augroup YankToClip
+    autocmd!
+    autocmd TextYankPost *
+    \ if v:event.operator ==# 'y' |
+    \ call system('clip.exe', getreg(v:event.regname ==# '' ? '"' : v:event.regname)) |
+    \ endif
+  augroup END
+endif
+
+
+if executable('powershell.exe')
+  " p / P で Windows クリップボードから貼り付け
+  nnoremap <silent> p :let @"=substitute(system('powershell.exe -NoProfile -Command Get-Clipboard'), '\r\n\?', '\n', 'g')<CR>p
+  nnoremap <silent> P :let @"=substitute(system('powershell.exe -NoProfile -Command Get-Clipboard'), '\r\n\?', '\n', 'g')<CR>P
+endif
 
 
 " --- キーマップ（VimScript版） ---
@@ -106,6 +117,9 @@ nnoremap dl d$
 
 " d0 を dh に置き換え
 nnoremap dh d0
+
+" disable delete when put
+xnoremap p "_dP
 
 " ----------------------------
 " d をレジスタに保持しない（普段はブラックホール）
@@ -147,4 +161,18 @@ nnoremap <silent> <leader>X ""X
 " Visual の置換ペーストでレジスタを汚さない
 " Windows クリップボードから取得して貼り付け
 " ----------------------------
-xnoremap <silent> p :let @"=substitute(system('powershell.exe -NoProfile -Command Get-Clipboard'), '\r\n\?', '\n', 'g')<CR>gv"_dP
+if executable ('powershell.exe')
+  xnoremap <silent> p :let @"=substitute(system('powershell.exe -NoProfile -Command Get-Clipboard'), '\r\n\?', '\n', 'g')<CR>gv"_dP
+endif
+
+nnoremap <Esc><Esc> :nohlsearch<CR>
+
+
+" ----------------------------
+" setting for vim-easymotion
+" ----------------------------
+nmap <Leader>w <Plug>(easymotion-w)
+nmap <Leader>f <Plug>(easymotion-f)
+nmap <Leader>s <Plug>(easymotion-s)
+let g:EasyMotion_smartcase = 1
+
