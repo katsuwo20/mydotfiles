@@ -56,6 +56,7 @@ case "$ENV" in
 
         # vimの設定を行う
         setup_vim
+        setup_nvim
         ;;
     "$ENV_WINDOWS")
         warn "env" "Windows environment does not support this setup script."
