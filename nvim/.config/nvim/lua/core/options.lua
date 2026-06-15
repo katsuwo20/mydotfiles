@@ -10,6 +10,7 @@ opt.showmatch = true              -- 対応する括弧を表示
 opt.laststatus = 2                -- ステータスライン常時表示
 opt.list = true                   -- 不可視文字表示
 opt.listchars = { tab = "▸ ", trail = "·", extends = "»", precedes = "«" }
+opt.termguicolors = false         -- gui colorをオフにする
 
 -- --- 検索 ---
 opt.ignorecase = true             -- 大文字小文字無視
