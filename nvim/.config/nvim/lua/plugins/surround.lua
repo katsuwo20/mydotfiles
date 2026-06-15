@@ -7,3 +7,17 @@ vim.keymap.set("x", "s", "<Plug>VSurround")
 
 -- カスタムサラウンド: Markdown コードブロック（c キー）
 vim.g["surround_" .. string.byte("c")] = "```\n\r\n```"
+
+
+-- スペースありなしを逆転
+-- {}
+vim.g["surround_" .. string.byte("{")] = "{\r}"
+vim.g["surround_" .. string.byte("}")] = "{ \r }"
+
+-- ()
+vim.g["surround_" .. string.byte("(")] = "(\r)"
+vim.g["surround_" .. string.byte(")")] = "( \r )"
+
+-- []
+vim.g["surround_" .. string.byte("[")] = "[\r]"
+vim.g["surround_" .. string.byte("]")] = "[ \r ]"
