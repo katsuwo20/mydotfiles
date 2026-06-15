@@ -20,5 +20,6 @@ sudo apt install -y \
     python3-venv \
     python3-pip \
     neovim \
+    unzip \
 
 success packages "Packages installed successfully"
