@@ -15,6 +15,15 @@ setup_vim() {
 setup_nvim() {
     cd "$DOTFILES_DIR"
     log "$TAG_vim" "Applying vim settings ..."
+
+    local submodule_setup_script="$DOTFILES_DIR/install/submodules.sh"
+    if [[ -f "$submodule_setup_script" ]]; then
+        log "$TAG_vim" "Installing/updating git submodules ..."
+        bash "$submodule_setup_script"
+    else
+        warn "$TAG_vim" "Submodule installer not found: $submodule_setup_script"
+    fi
+
     # nvimの設定をホームディレクトリにシンボリックリンク
     stow -v -t ~ nvim
 }

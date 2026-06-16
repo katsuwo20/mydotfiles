@@ -1,3 +1,8 @@
 # ダウンロードパッケージ
 bin/packages/
+
+# vimのundoファイル
 *.un~
+
+# nvim-treesitterのキャッシュ
+nvim/.local/share/nvim/tree-sitter*
