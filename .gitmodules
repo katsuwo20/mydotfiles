@@ -1,3 +1,15 @@
 [submodule "nvim/.config/nvim/pack/plugins/start/nvim-treesitter"]
 	path = nvim/.config/nvim/pack/plugins/start/nvim-treesitter
 	url = https://github.com/nvim-treesitter/nvim-treesitter.git
+[submodule "nvim/.config/nvim/pack/plugins/start/plenary.nvim"]
+	path = nvim/.config/nvim/pack/plugins/start/plenary.nvim
+	url = https://github.com/nvim-lua/plenary.nvim.git
+[submodule "nvim/.config/nvim/pack/plugins/start/nui.nvim"]
+	path = nvim/.config/nvim/pack/plugins/start/nui.nvim
+	url = https://github.com/MunifTanjim/nui.nvim.git
+[submodule "nvim/.config/nvim/pack/plugins/start/nvim-web-devicons"]
+	path = nvim/.config/nvim/pack/plugins/start/nvim-web-devicons
+	url = https://github.com/nvim-tree/nvim-web-devicons.git
+[submodule "nvim/.config/nvim/pack/plugins/start/neo-tree.nvim"]
+	path = nvim/.config/nvim/pack/plugins/start/neo-tree.nvim
+	url = https://github.com/nvim-neo-tree/neo-tree.nvim.git
