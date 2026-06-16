@@ -20,6 +20,13 @@ vim.keymap.set("n", "<leader>e", ":Neotree reveal left<CR>", {
 	desc = "Neo-tree: reveal current file",
 })
 
+-- Neo-tree から編集ウィンドウへフォーカスを戻す
+vim.keymap.set("n", "<leader>w", "<C-w>p", {
+	noremap = true,
+	silent = true,
+	desc = "Focus previous editing window",
+})
+
 -- Nerd Font がない環境では `:let g:have_nerd_font = v:false` を設定すると
 -- 下のフォールバック記号へ切り替わる。
 local have_nerd_font = vim.g.have_nerd_font ~= false

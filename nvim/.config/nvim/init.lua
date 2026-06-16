@@ -25,4 +25,4 @@ require("plugins.autopairs")
 require("plugins.devicons")
 require("plugins.neo-tree")
 require("plugins.bufferline")
-
+require("plugins.persistence")

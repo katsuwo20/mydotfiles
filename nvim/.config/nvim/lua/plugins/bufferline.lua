@@ -1,11 +1,21 @@
 
-require("bufferline").setup {
+require("bufferline").setup({
+  highlights = {
+    -- 選択中バッファを太字 + 下線で見分けやすくする
+    buffer_selected = {
+      bold = true,
+      italic = false,
+    },
+    indicator_selected = {
+      bold = true,
+    },
+  },
   options = {
-    numbers = "none",              -- 番号表示しない
+    numbers = "none", -- 番号表示しない
     close_command = "bdelete! %d", -- バッファ削除
     right_mouse_command = "bdelete! %d",
     indicator = {
-      style = "icon",              -- 選択中の印
+      style = "underline", -- 選択中バッファに下線を表示
     },
     buffer_close_icon = "x",
     modified_icon = "*",
@@ -13,24 +23,53 @@ require("bufferline").setup {
     show_close_icon = false,
     show_buffer_close_icons = true,
 
-    diagnostics = "nvim_lsp",      -- LSP連携（後で効く）
+    diagnostics = "nvim_lsp", -- LSP連携
 
     offsets = {
       {
         filetype = "neo-tree",
         text = "File Explorer",
         highlight = "Directory",
-        text_align = "left"
-      }
+        text_align = "left",
+      },
     },
 
-    separator_style = "slant",     -- VSCodeっぽく
+    separator_style = "slant", -- VSCodeっぽい見た目
     always_show_bufferline = true,
-  }
-}
-
+  },
+})
 
 -- keymaps --
--- buffer移動
-vim.keymap.set("n", "<leader>n",   ":BufferLineCycleNext<CR>")
-vim.keymap.set("n", "<leader>p", ":BufferLineCyclePrev<CR>")
+-- バッファ移動
+vim.keymap.set("n", "<leader>n", ":BufferLineCycleNext<CR>", { silent = true })
+vim.keymap.set("n", "<leader>p", ":BufferLineCyclePrev<CR>", { silent = true })
+
+local function close_current_buffer_keep_nvim()
+  local current = vim.api.nvim_get_current_buf()
+
+  local listed_file_buffers = {}
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_is_valid(buf) and vim.bo[buf].buflisted and vim.bo[buf].buftype == "" then
+      table.insert(listed_file_buffers, buf)
+    end
+  end
+
+  -- 最後の1枚を閉じるときは空バッファを先に作って、:q 相当の終了を防ぐ
+  if #listed_file_buffers <= 1 then
+    vim.cmd("enew")
+  else
+    pcall(vim.cmd, "BufferLineCycleNext")
+  end
+
+  local ok, err = pcall(vim.cmd, "bdelete " .. current)
+  if not ok and err then
+    vim.notify(tostring(err), vim.log.levels.WARN)
+  end
+end
+
+-- 現在表示中のバッファを閉じる
+vim.keymap.set("n", "<leader>c", close_current_buffer_keep_nvim, { silent = true, desc = "Close current buffer" })
+
+-- VSCode風: Ctrl+s で保存のみ (バッファは閉じない)
+vim.keymap.set("n", "<C-s>", ":update<CR>", { silent = true, desc = "Save current buffer" })
+vim.keymap.set("i", "<C-s>", "<C-o>:update<CR>", { silent = true, desc = "Save current buffer" })
