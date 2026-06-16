@@ -41,11 +41,25 @@ require("bufferline").setup({
 
 -- keymaps --
 -- バッファ移動
-vim.keymap.set("n", "<leader>n", ":BufferLineCycleNext<CR>", { silent = true })
-vim.keymap.set("n", "<leader>p", ":BufferLineCyclePrev<CR>", { silent = true })
+vim.keymap.set("n", "<leader>.", ":BufferLineCycleNext<CR>", { silent = true })
+vim.keymap.set("n", "<leader>,", ":BufferLineCyclePrev<CR>", { silent = true })
+
+-- バッファ並び替え
+vim.keymap.set("n", "<leader>>", ":BufferLineMoveNext<CR>", { silent = true, desc = "Move buffer right" })
+vim.keymap.set("n", "<leader><", ":BufferLineMovePrev<CR>", { silent = true, desc = "Move buffer left" })
 
 local function close_current_buffer_keep_nvim()
   local current = vim.api.nvim_get_current_buf()
+  local force_delete = false
+
+  -- 未保存の変更がある場合は、保存せず閉じるか確認する
+  if vim.api.nvim_buf_is_valid(current) and vim.bo[current].modified then
+    local choice = vim.fn.confirm("保存されていない変更があります。保存せずに削除しますか？", "&Yes\n&No", 2)
+    if choice ~= 1 then
+      return
+    end
+    force_delete = true
+  end
 
   local listed_file_buffers = {}
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
@@ -61,7 +75,8 @@ local function close_current_buffer_keep_nvim()
     pcall(vim.cmd, "BufferLineCycleNext")
   end
 
-  local ok, err = pcall(vim.cmd, "bdelete " .. current)
+  local delete_cmd = force_delete and "bdelete! " or "bdelete "
+  local ok, err = pcall(vim.cmd, delete_cmd .. current)
   if not ok and err then
     vim.notify(tostring(err), vim.log.levels.WARN)
   end
