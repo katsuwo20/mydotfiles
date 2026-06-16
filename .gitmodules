@@ -19,3 +19,6 @@
 [submodule "nvim/.config/nvim/pack/plugins/start/bufferline"]
 	path = nvim/.config/nvim/pack/plugins/start/bufferline
 	url = https://github.com/akinsho/bufferline.nvim.git
+[submodule "nvim/.config/nvim/pack/plugins/start/telescope"]
+	path = nvim/.config/nvim/pack/plugins/start/telescope
+	url = https://github.com/nvim-telescope/telescope.nvim.git

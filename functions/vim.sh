@@ -16,6 +16,21 @@ setup_nvim() {
     cd "$DOTFILES_DIR"
     log "$TAG_vim" "Applying vim settings ..."
 
+    log "$TAG_vim" "unpack the tar file"
+    cd bin/common/.local
+    rm -rf nvim-release-pkg
+    cd ../../packages
+    tar -xzf nvim-v0.12.3-release-linux-x86_64.tar.gz -C ../common/.local/
+
+    log "$TAG_vim" "add it to the PATH"
+    cd ../common/.local/bin
+    rm -f nvim
+    ln -s ../nvim-release-pkg/bin/nvim
+
+    success "$TAG_vim" "nvim installed successfully"
+
+
+    cd "$DOTFILES_DIR"
     local submodule_setup_script="$DOTFILES_DIR/install/submodules.sh"
     if [[ -f "$submodule_setup_script" ]]; then
         log "$TAG_vim" "Installing/updating git submodules ..."

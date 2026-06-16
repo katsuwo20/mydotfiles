@@ -3,6 +3,8 @@ bin/packages/
 
 # vimのundoファイル
 *.un~
+# neovimのバイナリファイル
+bin/common/.local/nvim-release-pkg/
 
 # nvim-treesitterのキャッシュ
 nvim/.local/share/nvim/tree-sitter*
