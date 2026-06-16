@@ -39,6 +39,13 @@ setup_nvim() {
         warn "$TAG_vim" "Submodule installer not found: $submodule_setup_script"
     fi
 
+    log "$TAG_vim" "build telescope-fzf"
+    cd nvim/.config/nvim/pack/plugins/start/telescope-fzf-native.nvim
+    make
+    success "$TAG_vim" "complete to build telescope-fzf-native"
+
+
+    cd "$DOTFILES_DIR"
     # nvimの設定をホームディレクトリにシンボリックリンク
     stow -v -t ~ nvim
 }

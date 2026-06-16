@@ -9,3 +9,6 @@ bin/common/.local/nvim-release-pkg/
 # nvim-treesitterのキャッシュ
 nvim/.local/share/nvim/tree-sitter*
 nvim/.local/share/nvim/*.log
+
+# telescope.vimのキャッシュ
+nvim/.local/share/nvim/telescope_history
