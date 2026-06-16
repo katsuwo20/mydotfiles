@@ -30,6 +30,32 @@ vim.keymap.set("n", "<leader>w", "<C-w>p", {
 -- Nerd Font がない環境では `:let g:have_nerd_font = v:false` を設定すると
 -- 下のフォールバック記号へ切り替わる。
 local have_nerd_font = vim.g.have_nerd_font ~= false
+local tree_width_step = 4
+local tree_width_min = 20
+
+local function resize_tree_width(state, delta)
+	if not (state and state.winid and vim.api.nvim_win_is_valid(state.winid)) then
+		return
+	end
+
+	local current_width = vim.api.nvim_win_get_width(state.winid)
+	local max_width = math.max(tree_width_min, vim.o.columns - 20)
+	local next_width = math.min(max_width, math.max(tree_width_min, current_width + delta))
+
+	vim.api.nvim_win_set_width(state.winid, next_width)
+	if state.window then
+		state.window.width = next_width
+	end
+end
+
+local function apply_neotree_ignored_highlight()
+	vim.api.nvim_set_hl(0, "NeoTreeGitIgnored", { fg = "#6b7280", italic = true })
+end
+
+apply_neotree_ignored_highlight()
+vim.api.nvim_create_autocmd("ColorScheme", {
+	callback = apply_neotree_ignored_highlight,
+})
 
 require("neo-tree").setup({
 	-- diagnostics / git 状態の描画で利用
@@ -77,6 +103,13 @@ require("neo-tree").setup({
 			-- l/h で展開/折りたたみ (NerdTree系操作に近い)
 			["l"] = "open",
 			["h"] = "close_node",
+			-- Neo-tree上では Ctrl-h/l でペイン幅を調整
+			["<C-h>"] = function(state)
+				resize_tree_width(state, -tree_width_step)
+			end,
+			["<C-l>"] = function(state)
+				resize_tree_width(state, tree_width_step)
+			end,
 			-- a/r/d は VSCode Explorer の新規/リネーム/削除に対応
 			["a"] = "add",
 			["r"] = "rename",
@@ -100,13 +133,13 @@ require("neo-tree").setup({
 		bind_to_cwd = true,
 		use_libuv_file_watcher = true,
 		filtered_items = {
-			visible = false,
+			visible = true,
 			hide_dotfiles = false,
-			hide_gitignored = true,
-			hide_by_name = {
-				"node_modules",
-				".git",
-			},
+			hide_gitignored = false,
+			hide_ignored = false,
+			hide_hidden = false,
+			hide_by_name = {},
+			never_show = {},
 		},
 	},
 
