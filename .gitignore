@@ -6,3 +6,4 @@ bin/packages/
 
 # nvim-treesitterのキャッシュ
 nvim/.local/share/nvim/tree-sitter*
+nvim/.local/share/nvim/*.log

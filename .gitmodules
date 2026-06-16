@@ -13,3 +13,9 @@
 [submodule "nvim/.config/nvim/pack/plugins/start/neo-tree.nvim"]
 	path = nvim/.config/nvim/pack/plugins/start/neo-tree.nvim
 	url = https://github.com/nvim-neo-tree/neo-tree.nvim.git
+[submodule "nvim/.config/nvim/pack/plugins/start/bufferline.nvim"]
+	path = nvim/.config/nvim/pack/plugins/start/bufferline.nvim
+	url = https://github.com/akinsho/bufferline.nvim.git
+[submodule "nvim/.config/nvim/pack/plugins/start/persistance"]
+	path = nvim/.config/nvim/pack/plugins/start/persistance
+	url = https://github.com/folke/persistence.nvim.git
