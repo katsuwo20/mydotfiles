@@ -1,5 +1,7 @@
 require("nvim-treesitter.configs").setup({
 	ensure_installed = {
+		"c",
+		"cpp",
 		"bash",
 		"css",
 		"go",
@@ -8,7 +10,9 @@ require("nvim-treesitter.configs").setup({
 		"json",
 		"lua",
 		"markdown",
+		"markdown_inline",
 		"python",
+		"query",
 		"rust",
 		"toml",
 		"tsx",
@@ -16,8 +20,6 @@ require("nvim-treesitter.configs").setup({
 		"vim",
 		"vimdoc",
 		"yaml",
-        "c",
-        "cpp",
 	},
 	sync_install = false,
 	auto_install = true,
