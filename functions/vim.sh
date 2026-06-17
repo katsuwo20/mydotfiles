@@ -12,23 +12,27 @@ setup_vim() {
     mkdir -p "$HOME/.cache/vim/undo"
 }
 
-setup_nvim() {
-    cd "$DOTFILES_DIR"
-    log "$TAG_vim" "Applying vim settings ..."
-
+unpack_nvim() {
+    # nvimを展開してパスを通す関数
     log "$TAG_vim" "unpack the tar file"
-    cd bin/common/.local
+    cd "$BIN_DIR"/common/.local
     rm -rf nvim-release-pkg
-    cd ../../packages
+    cd "$PACKAGES_DIR"
     tar -xzf nvim-v0.12.3-release-linux-x86_64.tar.gz -C ../common/.local/
 
     log "$TAG_vim" "add it to the PATH"
-    cd ../common/.local/bin
+    cd "$BIN_DIR"/common/.local/bin
     rm -f nvim
     ln -s ../nvim-release-pkg/bin/nvim
 
     success "$TAG_vim" "nvim installed successfully"
+}
 
+setup_nvim() {
+    cd "$DOTFILES_DIR"
+    log "$TAG_vim" "Applying vim settings ..."
+    # nvimを展開してパスを設定
+    unpack_nvim
 
     cd "$DOTFILES_DIR"
     local submodule_setup_script="$DOTFILES_DIR/install/submodules.sh"
@@ -40,7 +44,7 @@ setup_nvim() {
     fi
 
     log "$TAG_vim" "build telescope-fzf"
-    cd nvim/.config/nvim/pack/plugins/start/telescope-fzf-native.nvim
+    cd  "$NVIM_PLUGS_DIR"/telescope-fzf-native.nvim
     make
     success "$TAG_vim" "complete to build telescope-fzf-native"
 

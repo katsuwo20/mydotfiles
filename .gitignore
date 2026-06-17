@@ -1,10 +1,11 @@
-# ダウンロードパッケージ
-bin/packages/
-
 # vimのundoファイル
 *.un~
-# neovimのバイナリファイル
+# バイナリファイル
+bin/common/.local/bin/win32yank.exe
+bin/common/.local/bin/nvim
+bin/common/.local/bin/zoxide
 bin/common/.local/nvim-release-pkg/
+bin/common/.local/win32yank/
 
 # nvim-treesitterのキャッシュ
 nvim/.local/share/nvim/tree-sitter*
@@ -12,3 +13,7 @@ nvim/.local/share/nvim/*.log
 
 # telescope.vimのキャッシュ
 nvim/.local/share/nvim/telescope_history
+
+# zshのbuild用データ
+bin/packages/zsh/
+
