@@ -62,6 +62,9 @@ case "$ENV" in
         # vimの設定を行う
         setup_vim
         setup_nvim
+
+        # zoxideの設定を行う
+        unpack_zoxide
         ;;
     "$ENV_WINDOWS")
         warn "env" "Windows environment does not support this setup script."

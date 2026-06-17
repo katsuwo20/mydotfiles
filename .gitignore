@@ -6,6 +6,7 @@ bin/common/.local/bin/nvim
 bin/common/.local/bin/zoxide
 bin/common/.local/nvim-release-pkg/
 bin/common/.local/win32yank/
+bin/common/.local/zoxide/
 
 # nvim-treesitterのキャッシュ
 nvim/.local/share/nvim/tree-sitter*
