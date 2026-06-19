@@ -8,7 +8,8 @@ bin/common/.local/nvim-release-pkg/
 bin/common/.local/win32yank/
 bin/common/.local/zoxide/
 
-# nvim-treesitterのキャッシュ
+# nvim-treesitter
+nvim/.local/share/nvim/site/
 nvim/.local/share/nvim/tree-sitter*
 nvim/.local/share/nvim/*.log
 
