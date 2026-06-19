@@ -1,12 +1,11 @@
 # vimのundoファイル
 *.un~
 # バイナリファイル
-bin/common/.local/bin/win32yank.exe
-bin/common/.local/bin/nvim
-bin/common/.local/bin/zoxide
-bin/common/.local/nvim-release-pkg/
-bin/common/.local/win32yank/
-bin/common/.local/zoxide/
+bin/local/.local/*
+!bin/local/.local/bin/
+bin/local/.local/bin/*
+!bin/local/.local/bin/env
+!bin/local/.local/bin/env.fish
 
 # nvim-treesitter
 nvim/.local/share/nvim/site/

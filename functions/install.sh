@@ -34,8 +34,15 @@ install_for_linux() {
     set_locale
 
     # binファイルのpathを設定
-    cd "$BIN_DIR"
+    log "$TAG_install" "remove ~/.local/bin" # 既存の設定を削除
+    rm -rf ~/.local/bin
     log "$TAG_install" "Setting up bin files..."
-    stow -v -t ~ common
-    stow -v -t ~ WSL
+    cd "$BIN_DIR"
+    stow -v -t ~ local
+
+
+    # log "$TAG_install" "Setting up bin files..."
+    # cd "$BIN_DIR"
+    # stow -v -t ~ common
+    # stow -v -t ~ WSL
 }

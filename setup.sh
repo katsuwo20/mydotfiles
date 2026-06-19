@@ -13,12 +13,16 @@ DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 FUNCTIONS_DIR="$DOTFILES_DIR/functions"
 BIN_DIR="$DOTFILES_DIR/bin"
 PACKAGES_DIR="$BIN_DIR/packages"
+LOCAL_DIR="$BIN_DIR/local/.local"
+LOCAL_BIN_DIR="$LOCAL_DIR/bin"
 NVIM_PLUGS_DIR="$DOTFILES_DIR/nvim/.config/nvim/pack/plugins/start"
 
 export DOTFILES_DIR
 export FUNCTIONS_DIR
 export BIN_DIR
 export PACKAGES_DIR
+export LOCAL_DIR
+export LOCAL_BIN_DIR
 export NVIM_PLUGS_DIR
 
 # 共通関数の読み込み
@@ -65,6 +69,9 @@ case "$ENV" in
 
         # zoxideの設定を行う
         unpack_zoxide
+
+        # uvの設定を行う
+        unpack_uv
         ;;
     "$ENV_WINDOWS")
         warn "env" "Windows environment does not support this setup script."

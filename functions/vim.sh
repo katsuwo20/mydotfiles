@@ -13,19 +13,10 @@ setup_vim() {
 }
 
 unpack_nvim() {
-    # nvimを展開してパスを通す関数
-    log "$TAG_vim" "unpack the tar file"
-    cd "$BIN_DIR"/common/.local
-    rm -rf nvim-release-pkg
-    cd "$PACKAGES_DIR"
-    tar -xzf nvim-v0.12.3-release-linux-x86_64.tar.gz -C ../common/.local/
+    local pack="nvim"
+    local archive="nvim-v0.12.3-release-linux-x86_64"
 
-    log "$TAG_vim" "add it to the PATH"
-    cd "$BIN_DIR"/common/.local/bin
-    rm -f nvim
-    ln -s ../nvim-release-pkg/bin/nvim
-
-    success "$TAG_vim" "nvim installed successfully"
+    unpack_common "$pack" "$archive"
 }
 
 setup_nvim() {

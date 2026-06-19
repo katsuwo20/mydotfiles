@@ -14,19 +14,9 @@ set_zsh_default() {
 }
 
 unpack_win32yank() {
-    #win32yankを展開してpathを通す
-    log "win32yank" "unpack the tar file"
-    cd "$BIN_DIR"/common/.local
-    rm -rf win32yank
-    cd "$PACKAGES_DIR"
-    tar -xzf win32yank.tar.gz -C "$BIN_DIR"/common/.local/
+    local pack="win32yank"
 
-    log "win32yank" "add it to the PATH"
-    cd "$BIN_DIR"/common/.local/bin
-    rm -f win32yank.exe
-    ln -s ../win32yank/win32yank.exe
-
-    success "win32yank" "win32yank installed successfully"
+    unpack_common "$pack"
 }
 
 # zshの設定を適用する関数
