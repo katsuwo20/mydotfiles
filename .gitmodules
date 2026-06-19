@@ -26,3 +26,6 @@
 [submodule "nvim/.config/nvim/pack/plugins/start/tokyonight"]
 	path = nvim/.config/nvim/pack/plugins/start/tokyonight
 	url = https://github.com/folke/tokyonight.nvim.git
+[submodule "nvim/.config/nvim/pack/plugins/start/toggleterm"]
+	path = nvim/.config/nvim/pack/plugins/start/toggleterm
+	url = https://github.com/akinsho/toggleterm.nvim.git
