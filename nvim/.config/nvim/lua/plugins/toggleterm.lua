@@ -27,7 +27,7 @@ map("t", "<C-t>", [[<C-\><C-n><cmd>1ToggleTerm<CR>]], opts)
 -- terminal操作改善
 -- =====================
 -- terminal → normal
-map("t", "<Esc>", [[<C-\><C-n>]], opts)
+map("t", "<leader><Esc>", [[<C-\><C-n>]], opts)
 
 -- =====================
 -- lazygit（float）

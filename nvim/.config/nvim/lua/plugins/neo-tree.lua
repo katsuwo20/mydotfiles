@@ -27,6 +27,28 @@ vim.keymap.set("n", "<leader>w", "<C-w>p", {
 	desc = "Focus previous editing window",
 })
 
+
+-- ##########################################
+-- ツリー更新系
+-- ##########################################
+-- lazygit終了時
+vim.api.nvim_create_autocmd("TermClose", {
+  pattern = "*lazygit*",
+  callback = function()
+    require("neo-tree.sources.filesystem.commands").refresh(
+      require("neo-tree.sources.manager").get_state("filesystem")
+    )
+  end,
+})
+
+-- manual
+vim.keymap.set("n", "<leader>r", function()
+  require("neo-tree.sources.filesystem.commands").refresh(
+    require("neo-tree.sources.manager").get_state("filesystem")
+  )
+end)
+
+
 -- Nerd Font がない環境では `:let g:have_nerd_font = v:false` を設定すると
 -- 下のフォールバック記号へ切り替わる。
 local have_nerd_font = vim.g.have_nerd_font ~= false
