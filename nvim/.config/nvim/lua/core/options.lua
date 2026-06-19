@@ -11,6 +11,7 @@ opt.laststatus = 2                -- ステータスライン常時表示
 opt.list = true                   -- 不可視文字表示
 opt.listchars = { tab = "▸ ", trail = "·", extends = "»", precedes = "«" }
 opt.termguicolors = true          -- gui colorをオフにする
+opt.numver = true                 -- 行番号表示
 vim.cmd("colorscheme tokyonight") -- tokyonightのからスキームを適用
 
 -- --- 検索 ---
