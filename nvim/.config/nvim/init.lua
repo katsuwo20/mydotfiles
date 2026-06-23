@@ -15,6 +15,9 @@ require("core.clipboard")
 -- --- レジスタ制御 ---
 require("core.register")
 
+-- -- LSP設定
+require("lsp")
+
 -- --- プラグイン設定 ---
 require("plugins.commentary")
 require("plugins.current_word")
@@ -27,3 +30,4 @@ require("plugins.neo-tree")
 require("plugins.bufferline")
 require("plugins.telescope")
 require("plugins.toggleterm")
+require("plugins.mason")

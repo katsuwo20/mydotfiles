@@ -12,6 +12,9 @@ nvim/.local/share/nvim/site/
 nvim/.local/share/nvim/tree-sitter*
 nvim/.local/share/nvim/*.log
 
+# mason.nvim
+nvim/.local/share/nvim/mason/*
+
 # telescope.vimのキャッシュ
 nvim/.local/share/nvim/telescope_history
 

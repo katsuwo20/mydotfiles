@@ -29,3 +29,6 @@
 [submodule "nvim/.config/nvim/pack/plugins/start/toggleterm"]
 	path = nvim/.config/nvim/pack/plugins/start/toggleterm
 	url = https://github.com/akinsho/toggleterm.nvim.git
+[submodule "nvim/.config/nvim/pack/plugins/start/mason"]
+	path = nvim/.config/nvim/pack/plugins/start/mason
+	url = https://github.com/mason-org/mason.nvim.git
