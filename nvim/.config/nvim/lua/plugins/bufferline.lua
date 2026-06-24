@@ -39,15 +39,7 @@ require("bufferline").setup({
   },
 })
 
--- keymaps --
--- バッファ移動
-vim.keymap.set("n", "<leader>.", ":BufferLineCycleNext<CR>", { silent = true })
-vim.keymap.set("n", "<leader>,", ":BufferLineCyclePrev<CR>", { silent = true })
-
--- バッファ並び替え
-vim.keymap.set("n", "<leader>>", ":BufferLineMoveNext<CR>", { silent = true, desc = "Move buffer right" })
-vim.keymap.set("n", "<leader><", ":BufferLineMovePrev<CR>", { silent = true, desc = "Move buffer left" })
-
+-- キーマップは core/keymaps.lua に集約。
 local function close_current_buffer_keep_nvim()
   local current = vim.api.nvim_get_current_buf()
   local force_delete = false
@@ -82,9 +74,7 @@ local function close_current_buffer_keep_nvim()
   end
 end
 
--- 現在表示中のバッファを閉じる
-vim.keymap.set("n", "<leader>c", close_current_buffer_keep_nvim, { silent = true, desc = "Close current buffer" })
-
--- VSCode風: Ctrl+s で保存のみ (バッファは閉じない)
-vim.keymap.set("n", "<C-s>", ":update<CR>", { silent = true, desc = "Save current buffer" })
-vim.keymap.set("i", "<C-s>", "<C-o>:update<CR>", { silent = true, desc = "Save current buffer" })
+-- 現在のバッファを閉じる処理は外部から呼び出せるよう公開する。
+return {
+  close_current_buffer = close_current_buffer_keep_nvim,
+}

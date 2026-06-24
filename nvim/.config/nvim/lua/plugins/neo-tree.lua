@@ -6,27 +6,8 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
--- VSCode風: Ctrl+b でサイドバーをトグル
-vim.keymap.set("n", "<C-b>", ":Neotree toggle left<CR>", {
-	noremap = true,
-	silent = true,
-	desc = "Neo-tree: toggle left sidebar",
-})
-
--- VSCode風: 現在編集中ファイルをツリー上で追跡してフォーカス
-vim.keymap.set("n", "<leader>e", ":Neotree reveal left<CR>", {
-	noremap = true,
-	silent = true,
-	desc = "Neo-tree: reveal current file",
-})
-
--- Neo-tree から編集ウィンドウへフォーカスを戻す
-vim.keymap.set("n", "<leader>w", "<C-w>p", {
-	noremap = true,
-	silent = true,
-	desc = "Focus previous editing window",
-})
-
+-- グローバルキーマップ（<C-b> / <leader>e / <leader>w / <leader>r）は
+-- core/keymaps.lua に集約。
 
 -- ##########################################
 -- ツリー更新系
@@ -40,13 +21,6 @@ vim.api.nvim_create_autocmd("TermClose", {
     )
   end,
 })
-
--- manual
-vim.keymap.set("n", "<leader>r", function()
-  require("neo-tree.sources.filesystem.commands").refresh(
-    require("neo-tree.sources.manager").get_state("filesystem")
-  )
-end)
 
 
 -- Nerd Font がない環境では `:let g:have_nerd_font = v:false` を設定すると

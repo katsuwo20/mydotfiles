@@ -15,5 +15,4 @@ vim.g["vim_current_word#delay_ms"] = 50
 -- 特定のファイルタイプでは無効化
 vim.g["vim_current_word#excluded_filetypes"] = { "NvimTree", "help", "qf" }
 
--- キーマップ: トグル
-vim.keymap.set("n", "<Leader>tw", ":VimCurrentWordToggle<CR>")
+-- キーマップ（<Leader>tw トグル）は core/keymaps.lua に集約。

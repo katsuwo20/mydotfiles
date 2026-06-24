@@ -1,6 +1,3 @@
-local map = vim.keymap.set
-local opts = { noremap = true, silent = true }
-
 -- =====================
 -- toggleterm
 -- =====================
@@ -19,16 +16,6 @@ require("toggleterm").setup({
   persist_size = true,
 })
 
--- 1番terminal固定
-map("n", "<C-t>", "<cmd>1ToggleTerm<CR>", opts)
-map("t", "<C-t>", [[<C-\><C-n><cmd>1ToggleTerm<CR>]], opts)
-
--- =====================
--- terminal操作改善
--- =====================
--- terminal → normal
-map("t", "<Esc><Esc>", [[<C-\><C-n>]], opts)
-
 -- =====================
 -- lazygit（float）
 -- =====================
@@ -40,4 +27,10 @@ local lazygit = Terminal:new({
   hidden = true,
 })
 
-map("n", "<leader>lg", function() lazygit:toggle() end, opts)
+-- キーマップは core/keymaps.lua に集約。
+-- lazygit のトグルは外部から呼び出せるよう公開する。
+return {
+  lazygit_toggle = function()
+    lazygit:toggle()
+  end,
+}

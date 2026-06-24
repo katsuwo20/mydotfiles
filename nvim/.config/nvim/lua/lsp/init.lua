@@ -6,17 +6,8 @@ vim.diagnostic.config({
     underline = true,
 })
 
-vim.api.nvim_create_autocmd("LspAttach", {
-    callback = function(ev)
-        local opts = { buffer = ev.buf }
-
-        vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-        vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-        vim.keymap.set("n", "gk", vim.lsp.buf.hover, opts)
-        vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-    end,
-})
+-- LspAttach 時のバッファローカルキーマップ（gd / gr / gk / <leader>rn）は
+-- core/keymaps.lua に集約。
 
 require("lsp.lua_ls")
 require("lsp.clangd")
-

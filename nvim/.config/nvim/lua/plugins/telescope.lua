@@ -101,10 +101,10 @@ telescope.setup{
 
 telescope.load_extension('fzf')
 
--- キーマップ
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fg', function()
-  live_grep_with_extension(nil, nil)
-end, {})
-vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+-- キーマップは core/keymaps.lua に集約。
+-- 拡張子フィルタ付き live_grep は外部から呼び出せるよう公開する。
+return {
+  live_grep = function()
+    live_grep_with_extension(nil, nil)
+  end,
+}
