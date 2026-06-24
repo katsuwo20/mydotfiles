@@ -38,3 +38,9 @@
 [submodule "nvim/.config/nvim/pack/plugins/start/cmp-nvim-lsp"]
 	path = nvim/.config/nvim/pack/plugins/start/cmp-nvim-lsp
 	url = https://github.com/hrsh7th/cmp-nvim-lsp.git
+[submodule "nvim/.config/nvim/pack/plugins/start/cmp-buffer"]
+	path = nvim/.config/nvim/pack/plugins/start/cmp-buffer
+	url = https://github.com/hrsh7th/cmp-buffer.git
+[submodule "nvim/.config/nvim/pack/plugins/start/cmp-path"]
+	path = nvim/.config/nvim/pack/plugins/start/cmp-path
+	url = https://github.com/hrsh7th/cmp-path.git
