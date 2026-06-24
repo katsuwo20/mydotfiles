@@ -62,6 +62,9 @@ case "$ENV" in
         # zshの設定を行う
         setup_zsh
         unpack_win32yank
+        
+        # tmuxの設定を行う
+        setup_tmux
 
         # vimの設定を行う
         setup_vim
