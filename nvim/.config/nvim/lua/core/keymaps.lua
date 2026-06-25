@@ -4,7 +4,22 @@
 
 vim.g.mapleader = " "
 
-local map = vim.keymap.set
+-- リロード時に古いキーマップを削除する
+if vim.g._user_keymap_registry then
+	for _, entry in ipairs(vim.g._user_keymap_registry) do
+		pcall(vim.keymap.del, entry.mode, entry.lhs)
+	end
+end
+
+-- map() の呼び出しを追跡するラッパー
+local _registry = {}
+local map = function(mode, lhs, rhs, opts)
+	local modes = type(mode) == "table" and mode or { mode }
+	for _, m in ipairs(modes) do
+		table.insert(_registry, { mode = m, lhs = lhs })
+	end
+	vim.keymap.set(mode, lhs, rhs, opts)
+end
 
 -- ===============================
 -- 基本操作
@@ -68,12 +83,24 @@ map("n", "<C-b>", ":Neotree toggle left<CR>", { noremap = true, silent = true, d
 map("n", "<leader>e", ":Neotree reveal left<CR>", { noremap = true, silent = true, desc = "Neo-tree: 現在ファイルを表示" })
 -- Neo-tree から編集ウィンドウへフォーカスを戻す
 map("n", "<leader>w", "<C-w>p", { noremap = true, silent = true, desc = "直前の編集ウィンドウへフォーカス" })
--- ツリーを手動更新
+-- ツリーを手動更新 & 設定リロード
 map("n", "<leader>r", function()
+	-- Neo-tree ツリーを更新
 	require("neo-tree.sources.filesystem.commands").refresh(
 		require("neo-tree.sources.manager").get_state("filesystem")
 	)
-end, { desc = "Neo-tree: ツリーを更新" })
+	-- core.* モジュールのキャッシュをクリアして再読み込み
+	for name, _ in pairs(package.loaded) do
+		if name:match("^core") then
+			package.loaded[name] = nil
+		end
+	end
+	require("core.options")
+	require("core.clipboard")
+	require("core.register")
+	require("core.keymaps")
+	vim.notify("設定をリロードしました", vim.log.levels.INFO)
+end, { desc = "Neo-tree: ツリーを更新 / 設定をリロード" })
 
 -- ===============================
 -- Bufferline（バッファ操作）
@@ -122,10 +149,15 @@ map("n", "<leader>lg", function()
 	require("plugins.toggleterm").lazygit_toggle()
 end, vim.tbl_extend("force", term_opts, { desc = "LazyGit を開く" }))
 
+-- 登録済みキーマップをグローバルに保存（次回リロード時に削除するため）
+vim.g._user_keymap_registry = _registry
+
 -- ===============================
 -- LSP（LspAttach 時のバッファローカル）
 -- ===============================
+vim.api.nvim_create_augroup("UserLspKeymaps", { clear = true })
 vim.api.nvim_create_autocmd("LspAttach", {
+	group = "UserLspKeymaps",
 	callback = function(ev)
 		local opts = { buffer = ev.buf }
 		map("n", "gd", vim.lsp.buf.definition, vim.tbl_extend("force", opts, { desc = "LSP: 定義へジャンプ" }))
