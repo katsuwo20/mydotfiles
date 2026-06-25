@@ -47,3 +47,9 @@
 [submodule "nvim/.config/nvim/pack/plugins/start/which-key"]
 	path = nvim/.config/nvim/pack/plugins/start/which-key
 	url = https://github.com/folke/which-key.nvim
+[submodule "nvim/.config/nvim/pack/plugins/start/copilot"]
+	path = nvim/.config/nvim/pack/plugins/start/copilot
+	url = https://github.com/zbirenbaum/copilot.lua
+[submodule "nvim/.config/nvim/pack/plugins/start/copilot-cmp"]
+	path = nvim/.config/nvim/pack/plugins/start/copilot-cmp
+	url = https://github.com/zbirenbaum/copilot-cmp
