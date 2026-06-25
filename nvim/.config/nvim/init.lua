@@ -6,14 +6,14 @@
 -- --- 基本設定 ---
 require("core.options")
 
--- --- キーマップ ---
-require("core.keymaps")
-
 -- --- クリップボード ---
 require("core.clipboard")
 
 -- --- レジスタ制御 ---
 require("core.register")
+
+-- --- キーマップ ---
+require("core.keymaps")
 
 -- -- LSP設定
 require("lsp")
