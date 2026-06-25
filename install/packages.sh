@@ -23,7 +23,6 @@ sudo apt install -y \
     unzip \
     ripgrep \
     fd-find \
-    nodejs \
     npm \
 
 success packages "Packages installed successfully"

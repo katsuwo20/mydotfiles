@@ -40,6 +40,9 @@ install_for_linux() {
     cd "$BIN_DIR"
     stow -v -t ~ local
 
+    # stow後のセットアップ（~/.local/bin が確定してから実行する必要があるもの）
+    log "$TAG_install" "Running post-stow setup: nodejs.sh..."
+    "$INSTALL_DIR/nodejs.sh"
 
     # log "$TAG_install" "Setting up bin files..."
     # cd "$BIN_DIR"
