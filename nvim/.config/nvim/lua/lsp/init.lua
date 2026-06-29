@@ -11,3 +11,4 @@ vim.diagnostic.config({
 
 require("lsp.lua_ls")
 require("lsp.clangd")
+require("lsp.shell")
