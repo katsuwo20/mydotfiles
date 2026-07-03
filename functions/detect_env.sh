@@ -1,3 +1,8 @@
+# 2重書き込み防
+[[ -n ${__DETECT_ENV_LOADED:-} ]] && return
+readonly __DETECT_ENV_LOADED=1
+
+
 # detect_env.sh
 
 readonly TAG_detect_env="env"

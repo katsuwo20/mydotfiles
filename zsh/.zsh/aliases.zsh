@@ -28,3 +28,4 @@ alias v='nvim'
 
 # CF系
 alias bja='bjobs -u all'
+

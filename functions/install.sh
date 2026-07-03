@@ -1,3 +1,7 @@
+# 2重書き込み防止
+[[ -n ${__INSTALL_LOADED:-} ]] && return
+readonly __INSTALL_LOADED=1
+
 # install.sh
 
 readonly TAG_install="install"
@@ -11,6 +15,7 @@ set_locale() {
 
 # linux環境向けのインストール処理
 install_for_linux() {
+    cd "$DOTFILES_DIR"
     # 各種ツールをインストール
     log "$TAG_install" "Installing tools and packages..."
     INSTALL_DIR="$DOTFILES_DIR/install"
@@ -43,9 +48,4 @@ install_for_linux() {
     # stow後のセットアップ（~/.local/bin が確定してから実行する必要があるもの）
     log "$TAG_install" "Running post-stow setup: nodejs.sh..."
     "$INSTALL_DIR/nodejs.sh"
-
-    # log "$TAG_install" "Setting up bin files..."
-    # cd "$BIN_DIR"
-    # stow -v -t ~ common
-    # stow -v -t ~ WSL
 }

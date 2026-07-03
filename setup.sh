@@ -10,20 +10,8 @@ readonly ENV_UNKNOWN="unknown"
 
 # ファイルの場所を特定
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-FUNCTIONS_DIR="$DOTFILES_DIR/functions"
-BIN_DIR="$DOTFILES_DIR/bin"
-PACKAGES_DIR="$BIN_DIR/packages"
-LOCAL_DIR="$BIN_DIR/local/.local"
-LOCAL_BIN_DIR="$LOCAL_DIR/bin"
-NVIM_PLUGS_DIR="$DOTFILES_DIR/nvim/.config/nvim/pack/plugins/start"
-
-export DOTFILES_DIR
-export FUNCTIONS_DIR
-export BIN_DIR
-export PACKAGES_DIR
-export LOCAL_DIR
-export LOCAL_BIN_DIR
-export NVIM_PLUGS_DIR
+# 環境系の設定をsource
+source "$DOTFILES_DIR/functions/env.sh"
 
 # 共通関数の読み込み
 source "$FUNCTIONS_DIR/utils.sh"
@@ -56,13 +44,20 @@ case "$ENV" in
         ;;
     "$ENV_WSL")
         log "env" "Running in WSL environment. Proceeding with setup."
+
+        # mydotfilesのシンボリックリンクをhomeディレクトリに作成
+        log "env" "create link to mydotfiles in home directory"
+        cd ${HOME}
+        rm -f mydotfiles
+        ln -s $DOTFILES_DIR
+
         # Linux環境向けのインストール処理を実行
         install_for_linux
 
         # zshの設定を行う
         setup_zsh
         unpack_win32yank
-        
+
         # tmuxの設定を行う
         setup_tmux
 

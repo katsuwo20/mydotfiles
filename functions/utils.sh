@@ -1,3 +1,6 @@
+# 2重書き込み防
+[[ -n ${__UTIL_LOADED:-} ]] && return
+readonly __UTIL_LOADED=1
 
 #!/usr/bin/env bash
 
