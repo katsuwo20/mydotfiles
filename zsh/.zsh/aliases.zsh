@@ -22,3 +22,10 @@ alias lg='lazygit'
 # python系
 alias python='python3'
 alias pip='pip3'
+
+#neovim
+alias v='nvim'
+
+# CF系
+alias bja='bjobs -u all'
+

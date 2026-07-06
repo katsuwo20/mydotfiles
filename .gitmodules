@@ -1,0 +1,55 @@
+[submodule "nvim/.config/nvim/pack/plugins/start/nvim-treesitter"]
+	path = nvim/.config/nvim/pack/plugins/start/nvim-treesitter
+	url = https://github.com/nvim-treesitter/nvim-treesitter.git
+	branch = main
+[submodule "nvim/.config/nvim/pack/plugins/start/plenary.nvim"]
+	path = nvim/.config/nvim/pack/plugins/start/plenary.nvim
+	url = https://github.com/nvim-lua/plenary.nvim.git
+[submodule "nvim/.config/nvim/pack/plugins/start/nui.nvim"]
+	path = nvim/.config/nvim/pack/plugins/start/nui.nvim
+	url = https://github.com/MunifTanjim/nui.nvim.git
+[submodule "nvim/.config/nvim/pack/plugins/start/nvim-web-devicons"]
+	path = nvim/.config/nvim/pack/plugins/start/nvim-web-devicons
+	url = https://github.com/nvim-tree/nvim-web-devicons.git
+[submodule "nvim/.config/nvim/pack/plugins/start/neo-tree.nvim"]
+	path = nvim/.config/nvim/pack/plugins/start/neo-tree.nvim
+	url = https://github.com/nvim-neo-tree/neo-tree.nvim.git
+[submodule "nvim/.config/nvim/pack/plugins/start/bufferline"]
+	path = nvim/.config/nvim/pack/plugins/start/bufferline
+	url = https://github.com/akinsho/bufferline.nvim.git
+[submodule "nvim/.config/nvim/pack/plugins/start/telescope"]
+	path = nvim/.config/nvim/pack/plugins/start/telescope
+	url = https://github.com/nvim-telescope/telescope.nvim.git
+[submodule "nvim/.config/nvim/pack/plugins/start/telescope-fzf-native.nvim"]
+	path = nvim/.config/nvim/pack/plugins/start/telescope-fzf-native.nvim
+	url = git@github.com:nvim-telescope/telescope-fzf-native.nvim
+[submodule "nvim/.config/nvim/pack/plugins/start/tokyonight"]
+	path = nvim/.config/nvim/pack/plugins/start/tokyonight
+	url = https://github.com/folke/tokyonight.nvim.git
+[submodule "nvim/.config/nvim/pack/plugins/start/toggleterm"]
+	path = nvim/.config/nvim/pack/plugins/start/toggleterm
+	url = https://github.com/akinsho/toggleterm.nvim.git
+[submodule "nvim/.config/nvim/pack/plugins/start/mason"]
+	path = nvim/.config/nvim/pack/plugins/start/mason
+	url = https://github.com/mason-org/mason.nvim.git
+[submodule "nvim/.config/nvim/pack/plugins/start/nvim-cmp"]
+	path = nvim/.config/nvim/pack/plugins/start/nvim-cmp
+	url = https://github.com/hrsh7th/nvim-cmp.git
+[submodule "nvim/.config/nvim/pack/plugins/start/cmp-nvim-lsp"]
+	path = nvim/.config/nvim/pack/plugins/start/cmp-nvim-lsp
+	url = https://github.com/hrsh7th/cmp-nvim-lsp.git
+[submodule "nvim/.config/nvim/pack/plugins/start/cmp-buffer"]
+	path = nvim/.config/nvim/pack/plugins/start/cmp-buffer
+	url = https://github.com/hrsh7th/cmp-buffer.git
+[submodule "nvim/.config/nvim/pack/plugins/start/cmp-path"]
+	path = nvim/.config/nvim/pack/plugins/start/cmp-path
+	url = https://github.com/hrsh7th/cmp-path.git
+[submodule "nvim/.config/nvim/pack/plugins/start/which-key"]
+	path = nvim/.config/nvim/pack/plugins/start/which-key
+	url = https://github.com/folke/which-key.nvim
+[submodule "nvim/.config/nvim/pack/plugins/start/copilot"]
+	path = nvim/.config/nvim/pack/plugins/start/copilot
+	url = https://github.com/zbirenbaum/copilot.lua
+[submodule "nvim/.config/nvim/pack/plugins/start/copilot-cmp"]
+	path = nvim/.config/nvim/pack/plugins/start/copilot-cmp
+	url = https://github.com/zbirenbaum/copilot-cmp

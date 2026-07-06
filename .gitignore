@@ -1,3 +1,23 @@
-# ダウンロードパッケージ
-bin/packages/
+# vimのundoファイル
 *.un~
+# バイナリファイル
+bin/local/.local/*
+!bin/local/.local/bin/
+bin/local/.local/bin/*
+!bin/local/.local/bin/env
+!bin/local/.local/bin/env.fish
+
+# nvim-treesitter
+nvim/.local/share/nvim/site/
+nvim/.local/share/nvim/tree-sitter*
+nvim/.local/share/nvim/*.log
+
+# mason.nvim
+nvim/.local/share/nvim/mason/*
+
+# telescope.vimのキャッシュ
+nvim/.local/share/nvim/telescope_history
+
+# zshのbuild用データ
+bin/packages/zsh/
+

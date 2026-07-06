@@ -6,18 +6,31 @@
 -- --- 基本設定 ---
 require("core.options")
 
--- --- キーマップ ---
-require("core.keymaps")
-
 -- --- クリップボード ---
 require("core.clipboard")
 
 -- --- レジスタ制御 ---
 require("core.register")
 
+-- --- キーマップ ---
+require("core.keymaps")
+
+-- -- LSP設定
+require("lsp")
+
 -- --- プラグイン設定 ---
 require("plugins.commentary")
 require("plugins.current_word")
 require("plugins.easymotion")
 require("plugins.surround")
-require("plugins.lualine")
+require("plugins.treesitter")
+require("plugins.autopairs")
+require("plugins.devicons")
+require("plugins.neo-tree")
+require("plugins.bufferline")
+require("plugins.telescope")
+require("plugins.toggleterm")
+require("plugins.mason")
+require("plugins.cmp")
+require("plugins.which-key")
+require("plugins.copilot")

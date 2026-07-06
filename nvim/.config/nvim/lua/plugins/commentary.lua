@@ -2,11 +2,7 @@
 -- vim-commentary 設定
 -- ===============================
 
-local map = vim.keymap.set
-
--- <Leader>/ でトグルコメント（gcc の代替）
-map("n", "<Leader>/", "gcc", { remap = true })
-map("x", "<Leader>/", "gc", { remap = true })
+-- <Leader>/ のトグルコメントキーマップは core/keymaps.lua に集約。
 
 -- --- ファイルタイプ別コメント文字設定 ---
 vim.api.nvim_create_augroup("CommentaryFileTypes", { clear = true })

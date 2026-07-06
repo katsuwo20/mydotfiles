@@ -13,6 +13,12 @@ set_zsh_default() {
     fi
 }
 
+unpack_win32yank() {
+    local pack="win32yank"
+
+    unpack_common "$pack"
+}
+
 # zshの設定を適用する関数
 setup_zsh() {
     cd "$DOTFILES_DIR"

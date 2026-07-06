@@ -9,6 +9,7 @@ source "$FUNCTIONS_DIR/utils.sh"
 log packages "Installing packages..."
 
 sudo apt update
+sudo apt upgrade -y || true
 sudo apt install -y \
     locales \
     zsh \
@@ -19,6 +20,12 @@ sudo apt install -y \
     python3 \
     python3-venv \
     python3-pip \
-    neovim \
+    unzip \
+    ripgrep \
+    fd-find \
+    npm \
 
 success packages "Packages installed successfully"
+
+log packages "Cleaning up..."
+sudo apt autoremove -y
