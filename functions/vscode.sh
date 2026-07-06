@@ -24,7 +24,7 @@ setup_vscode_user_files() {
     local timestamp
 
     base_dir="${DOTFILES_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
-    source_dir="$base_dir/config/.config/vscode"
+    source_dir="$base_dir/vscode/.config/Code/User"
     windows_code_user_dir="$(get_windows_code_user_dir)" || {
         warn "$TAG_vscode" "Could not determine Windows VS Code User directory. Skipping sync."
         return
@@ -77,7 +77,7 @@ sync_vscode_user_files_from_windows() {
     local windows_code_user_dir
 
     base_dir="${DOTFILES_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
-    source_dir="$base_dir/config/.config/vscode"
+    source_dir="$base_dir/vscode/.config/Code/User"
     windows_code_user_dir="$(get_windows_code_user_dir)" || {
         warn "$TAG_vscode" "Could not determine Windows VS Code User directory."
         return
@@ -96,4 +96,14 @@ sync_vscode_user_files_from_windows() {
             warn "$TAG_vscode" "$src not found."
         fi
     done
+}
+
+create_vscode_symlink() {
+    local base_dir
+    base_dir="${DOTFILES_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
+
+    log "$TAG_vscode" "Creating symlinks ..."
+    cd "$base_dir"
+    stow -v -t ~ vscode
+    success "$TAG_vscode" "Symlinks created successfully"
 }
