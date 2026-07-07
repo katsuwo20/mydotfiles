@@ -112,13 +112,15 @@ sync_vscode_user_files_from_windows() {
 
 create_vscode_symlink() {
     local vscode_data_dir
-    vscode_data_dir="$HOME/.vscode-server/data"
+    local vscode_machine_dir
+    local machine_dir
+    vscode_machine_dir="$HOME/.vscode-server/data/Machine"
 
     log "$TAG_vscode" "Creating symlinks ..."
-    mkdir -p "$vscode_data_dir"
-    rm -rf "$vscode_data_dir/Machine"
-    cd "$DOTFILES_DIR"
-    stow -v -t "$vscode_data_dir" vscode
+    mkdir -p "$vscode_machine_dir"
+    rm -rf "$vscode_machine_dir/*"
+    cd "$VSCODE_DIR"
+    stow -v -t "$vscode_machine_dir" Machine
     success "$TAG_vscode" "Symlinks created successfully"
 }
 
