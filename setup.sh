@@ -16,10 +16,12 @@ source "$DOTFILES_DIR/functions/env.sh"
 # 共通関数の読み込み
 source "$FUNCTIONS_DIR/utils.sh"
 log "setup" "Loading function from $FUNCTIONS_DIR/parse_args.sh"
+# 引数の解析
 source "$FUNCTIONS_DIR/parse_args.sh" "$@"
 
 # functionsディレクトリ内の関数の読み込み
 for func in "$FUNCTIONS_DIR"/*.sh; do
+    [[ "$func" == *env.sh ]] && continue # env.shは既に読み込んでいるのでスキップ
     [[ "$func" == *utils.sh ]] && continue # utils.shは既に読み込んでいるのでスキップ
     [[ "$func" == *parse_args.sh ]] && continue # parse_args.shは既に読み込んでいるのでスキップ
 
