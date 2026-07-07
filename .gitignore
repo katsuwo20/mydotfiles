@@ -21,3 +21,5 @@ nvim/.local/share/nvim/telescope_history
 # zshのbuild用データ
 bin/packages/zsh/
 
+# vscodeのバックアップディレクトリ
+vscode/latest/

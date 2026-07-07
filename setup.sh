@@ -10,18 +10,21 @@ readonly ENV_UNKNOWN="unknown"
 
 # ファイルの場所を特定
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+export DOTFILES_DIR
 # 環境系の設定をsource
 source "$DOTFILES_DIR/functions/env.sh"
 
 # 共通関数の読み込み
 source "$FUNCTIONS_DIR/utils.sh"
 log "setup" "Loading function from $FUNCTIONS_DIR/parse_args.sh"
+# 引数の解析
 source "$FUNCTIONS_DIR/parse_args.sh" "$@"
 
 # functionsディレクトリ内の関数の読み込み
 for func in "$FUNCTIONS_DIR"/*.sh; do
-    [[ "$func" == *utils.sh ]] && continue # utils.shは既に読み込んでいるのでスキップ
-    [[ "$func" == *parse_args.sh ]] && continue # parse_args.shは既に読み込んでいるのでスキップ
+    [[ "$func" == env.sh ]] && continue # env.shは既に読み込んでいるのでスキップ
+    [[ "$func" == utils.sh ]] && continue # utils.shは既に読み込んでいるのでスキップ
+    [[ "$func" == parse_args.sh ]] && continue # parse_args.shは既に読み込んでいるのでスキップ
 
     log "setup" "Loading function from $func"
     source "$func"
@@ -122,6 +125,7 @@ stow -v -t ~ config
 # WSL上では、dotfiles側のVS Code設定をWindows側User設定へ同期
 if [[ "$ENV" == "$ENV_WSL" ]]; then
     setup_vscode_user_files
+    create_vscode_symlink
 fi
 
 

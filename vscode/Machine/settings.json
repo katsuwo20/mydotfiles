@@ -151,4 +151,11 @@
   "gitlab.duoCodeSuggestions.enabled": false,
   "remote.autoForwardPortsSource": "hybrid",
   "terminal.integrated.initialHint": false,
+
+  "files.associations": {
+    "*.tb": "systemverilog",
+    "*.inc": "systemverilog",
+  },
+
+
 }

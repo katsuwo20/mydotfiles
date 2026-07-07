@@ -15,7 +15,7 @@ _parse_arguments() {
     while [[ $# -gt 0 ]]; do
         case "$1" in
             -d|--download)
-                OPTS["download"]=true
+                OPTS["download"]=true # zshと依存パッケージをローカルにダウンロードするオプション
                 shift
                 ;;
             -e|--env)
