@@ -1,6 +1,8 @@
 # VS Code設定の同期を行うファイル
 
 readonly TAG_vscode="vscode"
+DOTFILES_DIR="${DOTFILES_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
+VSCODE_DIR="$DOTFILES_DIR/vscode"
 
 get_windows_code_user_dir() {
     local win_user
@@ -17,26 +19,31 @@ get_windows_code_user_dir() {
     printf '/mnt/c/Users/%s/AppData/Roaming/Code/User\n' "$win_user"
 }
 
-setup_vscode_user_files() {
-    local base_dir
-    local source_dir
-    local windows_code_user_dir
-    local timestamp
-
-    base_dir="${DOTFILES_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
-    source_dir="$base_dir/vscode/.config/Code/User"
-    windows_code_user_dir="$(get_windows_code_user_dir)" || {
+WINDOWS_CODE_USER_DIR="$(get_windows_code_user_dir)" || {
         warn "$TAG_vscode" "Could not determine Windows VS Code User directory. Skipping sync."
         return
     }
 
+# dotfiles側のVS Code設定をWindows側User設定へ同期する関数
+setup_vscode_user_files() {
+    local source_dir
+    local timestamp
+    local latest_dir
+
+    source_dir="$VSCODE_DIR/Machine"
+    latest_dir="$VSCODE_DIR/latest/windows"
+
+    log "$TAG_vscode" "Creating backup directory: $latest_dir"
+    mkdir -p "$latest_dir"
+
     mkdir -p "$source_dir"
-    mkdir -p "$windows_code_user_dir"
+    mkdir -p "$WINDOWS_CODE_USER_DIR"
     timestamp="$(date +%Y%m%d%H%M%S)"
 
     for file in settings.json keybindings.json; do
         local src="$source_dir/$file"
-        local dst="$windows_code_user_dir/$file"
+        local dst="$WINDOWS_CODE_USER_DIR/$file"
+        local latest_backup="$latest_dir/$file"
         local backup
 
         # dotfiles側が空でWindows側に既存があるなら取り込む
@@ -64,33 +71,37 @@ setup_vscode_user_files() {
             log "$TAG_vscode" "Moved non-regular $file to $backup"
         fi
 
-        cp "$src" "$dst"
+        log "$TAG_vscode" "Creating backup directory: $latest_dir"
+        cp "$dst" "$latest_backup" 2>/dev/null || true # バックアップを作成
+        cp "$src" "$dst" # dotfiles側の設定をWindows側にコピー
         success "$TAG_vscode" "Synced $file to Windows VS Code user settings."
     done
 
     log "$TAG_vscode" "Use sync_vscode_user_files_from_windows to import edits made in VS Code UI."
 }
 
+# Windows側のVS Code設定をdotfilesに取り込む関数
 sync_vscode_user_files_from_windows() {
-    local base_dir
     local source_dir
-    local windows_code_user_dir
+    local latest_dir
 
-    base_dir="${DOTFILES_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
-    source_dir="$base_dir/vscode/.config/Code/User"
-    windows_code_user_dir="$(get_windows_code_user_dir)" || {
-        warn "$TAG_vscode" "Could not determine Windows VS Code User directory."
-        return
-    }
+    latest_dir="$VSCODE_DIR/latest/wsl"
+    source_dir="$VSCODE_DIR/Machine"
+
+    # 現在の設定ファイルをバックアップするためのディレクトリを作成
+    log "$TAG_vscode" "Creating backup directory: $latest_dir"
+    mkdir -p "$latest_dir"
 
     mkdir -p "$source_dir"
 
     for file in settings.json keybindings.json; do
-        local src="$windows_code_user_dir/$file"
+        local src="$WINDOWS_CODE_USER_DIR/$file"
         local dst="$source_dir/$file"
+        local latest_backup="$latest_dir/$file"
 
         if [[ -f "$src" ]]; then
-            cp "$src" "$dst"
+            cp "$dst" "$latest_backup" 2>/dev/null || true # バックアップを作成
+            cp "$src" "$dst" # Windows側の設定をdotfilesに取り込む
             success "$TAG_vscode" "Imported $file from Windows VS Code user settings."
         else
             warn "$TAG_vscode" "$src not found."
@@ -98,12 +109,31 @@ sync_vscode_user_files_from_windows() {
     done
 }
 
+
 create_vscode_symlink() {
-    local base_dir
-    base_dir="${DOTFILES_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
+    local vscode_data_dir
+    vscode_data_dir="$HOME/.vscode-server/data"
 
     log "$TAG_vscode" "Creating symlinks ..."
-    cd "$base_dir"
-    stow -v -t ~ vscode
+    mkdir -p "$vscode_data_dir"
+    rm -rf "$vscode_data_dir/Machine"
+    cd "$DOTFILES_DIR"
+    stow -v -t "$vscode_data_dir" vscode
     success "$TAG_vscode" "Symlinks created successfully"
+}
+
+
+apply_vscode_backup() {
+    log "$TAG_vscode" "Applying backup from $VSCODE_DIR/latest/windows to $WINDOWS_CODE_USER_DIR ..."
+    for file in settings.json keybindings.json; do
+        local backup="$VSCODE_DIR/latest/windows/$file"
+        local dst="$WINDOWS_CODE_USER_DIR/$file"
+
+        if [[ -f "$backup" ]]; then
+            cp "$backup" "$dst"
+            success "$TAG_vscode" "Restored $file from backup."
+        else
+            warn "$TAG_vscode" "Backup for $file not found at $backup."
+        fi
+    done
 }
