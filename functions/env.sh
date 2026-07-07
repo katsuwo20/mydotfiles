@@ -10,7 +10,6 @@ LOCAL_DIR="$BIN_DIR/local/.local"
 LOCAL_BIN_DIR="$LOCAL_DIR/bin"
 NVIM_PLUGS_DIR="$DOTFILES_DIR/nvim/.config/nvim/pack/plugins/start"
 
-export DOTFILES_DIR
 export FUNCTIONS_DIR
 export BIN_DIR
 export PACKAGES_DIR
