@@ -4,7 +4,7 @@ readonly TAG_vscode="vscode"
 DOTFILES_DIR="${DOTFILES_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
 VSCODE_DIR="$DOTFILES_DIR/vscode"
 
-get_windows_code_user_dir() {
+get_windows_appdata_dir() {
     local win_user
 
     if ! command -v cmd.exe >/dev/null 2>&1; then
@@ -16,10 +16,13 @@ get_windows_code_user_dir() {
         return 1
     fi
 
-    printf '/mnt/c/Users/%s/AppData/Roaming/Code/User\n' "$win_user"
+    printf '/mnt/c/Users/%s/AppData/\n' "$win_user"
+}
+get_windows_code_settings_dir() {
+    printf '%sRoaming/Code/User\n' "$(get_windows_appdata_dir)"
 }
 
-WINDOWS_CODE_USER_DIR="$(get_windows_code_user_dir)" || {
+WINDOWS_CODE_SETTING_DIR="$(get_windows_code_settings_dir)" || {
         warn "$TAG_vscode" "Could not determine Windows VS Code User directory. Skipping sync."
         return
     }
@@ -37,12 +40,12 @@ setup_vscode_user_files() {
     mkdir -p "$latest_dir"
 
     mkdir -p "$source_dir"
-    mkdir -p "$WINDOWS_CODE_USER_DIR"
+    mkdir -p "$WINDOWS_CODE_SETTING_DIR"
     timestamp="$(date +%Y%m%d%H%M%S)"
 
     for file in settings.json keybindings.json; do
         local src="$source_dir/$file"
-        local dst="$WINDOWS_CODE_USER_DIR/$file"
+        local dst="$WINDOWS_CODE_SETTING_DIR/$file"
         local latest_backup="$latest_dir/$file"
         local backup
 
@@ -95,7 +98,7 @@ sync_vscode_user_files_from_windows() {
     mkdir -p "$source_dir"
 
     for file in settings.json keybindings.json; do
-        local src="$WINDOWS_CODE_USER_DIR/$file"
+        local src="$WINDOWS_CODE_SETTING_DIR/$file"
         local dst="$source_dir/$file"
         local latest_backup="$latest_dir/$file"
 
@@ -126,10 +129,10 @@ create_vscode_symlink() {
 
 
 apply_vscode_backup() {
-    log "$TAG_vscode" "Applying backup from $VSCODE_DIR/latest/windows to $WINDOWS_CODE_USER_DIR ..."
+    log "$TAG_vscode" "Applying backup from $VSCODE_DIR/latest/windows to $WINDOWS_CODE_SETTING_DIR ..."
     for file in settings.json keybindings.json; do
         local backup="$VSCODE_DIR/latest/windows/$file"
-        local dst="$WINDOWS_CODE_USER_DIR/$file"
+        local dst="$WINDOWS_CODE_SETTING_DIR/$file"
 
         if [[ -f "$backup" ]]; then
             cp "$backup" "$dst"
@@ -138,4 +141,31 @@ apply_vscode_backup() {
             warn "$TAG_vscode" "Backup for $file not found at $backup."
         fi
     done
+}
+
+backup_vscode_extensions() {
+    local extensions_dir
+    local extensions_file_wsl
+    local extensions_file_windows
+    extensions_dir="$VSCODE_DIR/extensions"
+    extensions_file_wsl="$extensions_dir/extensions_wsl.txt"
+    extensions_file_windows="$extensions_dir/extensions_windows.txt"
+
+    log "$TAG_vscode" "Backing up VSCode extensions to $extensions_file_wsl ..."
+
+    mkdir -p "$extensions_dir"
+
+    if code --list-extensions | grep '^[A-Za-z0-9_-]\+\.[A-Za-z0-9_.-]\+$' | sort > "$extensions_file_wsl"; then
+        success "$TAG_vscode" "WSL extensions backed up successfully."
+    else
+        error "$TAG_vscode" "Failed to backup WSL extensions."
+        return 1
+    fi
+
+    if cmd.exe /c "code --list-extensions" 2>/dev/null | tr -d '\r' | sort > "$extensions_file_windows"; then
+        success "$TAG_vscode" "Windows extensions backed up successfully."
+    else
+        error "$TAG_vscode" "Failed to backup Windows extensions."
+        return 1
+    fi
 }
