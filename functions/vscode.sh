@@ -1,5 +1,6 @@
 # VS Code設定の同期を行うファイル
 
+readonly ASCIIDOCTOR_VERSION="2.9.8"
 readonly TAG_vscode="vscode"
 DOTFILES_DIR="${DOTFILES_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
 VSCODE_DIR="$DOTFILES_DIR/vscode"
@@ -168,4 +169,42 @@ backup_vscode_extensions() {
         error "$TAG_vscode" "Failed to backup Windows extensions."
         return 1
     fi
+}
+
+install_vscode_extensions() {
+    local extensions_dir
+    local extensions_file_wsl
+    local extensions_file_windows
+    local ext
+    extensions_dir="$VSCODE_DIR/extensions"
+    extensions_file_wsl="$extensions_dir/extensions_wsl.txt"
+    extensions_file_windows="$extensions_dir/extensions_windows.txt"
+
+    _resolve_ext_version() {
+        local id="$1"
+        if [[ "$id" == "asciidoctor.asciidoctor-vscode" ]]; then
+            printf '%s@%s' "$id" "$ASCIIDOCTOR_VERSION"
+        else
+            printf '%s' "$id"
+        fi
+    }
+
+    log "$TAG_vscode" "Installing WSL extensions ..."
+    while IFS= read -r ext; do
+        [[ -z "$ext" ]] && continue
+        code --install-extension "$(_resolve_ext_version "$ext")" --force
+    done < "$extensions_file_wsl"
+    success "$TAG_vscode" "WSL extensions installed."
+
+    if ! command -v cmd.exe >/dev/null 2>&1; then
+        warn "$TAG_vscode" "cmd.exe not found. Skipping Windows extensions."
+        return
+    fi
+
+    log "$TAG_vscode" "Installing Windows extensions ..."
+    while IFS= read -r ext <&3; do
+        [[ -z "$ext" ]] && continue
+        cmd.exe /c "code --install-extension $(_resolve_ext_version "$ext") --force" 2>/dev/null
+    done 3< "$extensions_file_windows"
+    success "$TAG_vscode" "Windows extensions installed."
 }
