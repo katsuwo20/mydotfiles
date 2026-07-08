@@ -53,12 +53,12 @@ install_for_linux() {
 
 # CF環境向けのインストール処理
 install_for_cf() {
-    local home_bin_dir="$HOME/.local/bin"
+    local home_bin_dir="$HOME/.local"
     cd "$DOTFILES_DIR"
 
     # binファイルのpathを設定
     mkdir -p "$home_bin_dir"
     log "$TAG_install" "Setting up bin files..."
 
-    linkup "$LOCAL_BIN_DIR" "$home_bin_dir"
+    linkup "$LOCAL_BIN_DIR" "$home_bin_dir/bin"
 }
