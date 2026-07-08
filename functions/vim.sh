@@ -44,3 +44,45 @@ setup_nvim() {
     # nvimの設定をホームディレクトリにシンボリックリンク
     stow -v -t ~ nvim
 }
+
+# ==========================================
+# cf環境用
+# ==========================================
+# vimの設定を行う関数
+setup_vim_cf() {
+    local vim_dir="$DOTFILES_DIR/vim"
+
+    cd "$DOTFILES_DIR"
+    log "$TAG_vim" "Applying vim settings ..."
+    # vimの設定をホームディレクトリにシンボリックリンク
+    linkup "$vim_dir/.vimrc" "$HOME/.vimrc"
+    linkup "$vim_dir/.vim" "$HOME/.vim"
+
+    # vimのundoディレクトリを作成
+    mkdir -p "$HOME/.cache/vim/undo"
+}
+
+# neovimの設定を行う関数
+setup_nvim_cf() {
+    local nvim_dir="$DOTFILES_DIR/nvim"
+    local config_dir="$HOME/.config"
+    local local_share_dir="$HOME/.local/share"
+
+    log "$TAG_vim" "Applying vim settings ..."
+    cd "$DOTFILES_DIR"
+
+    # nvimを展開してパスを設定
+    unpack_nvim
+
+    # サブモジュール関連はcf環境では不要なのでスキップ
+
+    # homeディレクトリにnvimの設定をシンボリックリンク
+    # .config/ディレクトリ内
+    mkdir -p "$config_dir"
+    linkup $nvim_dir/.config/nvim $config_dir/nvim
+
+    # .local/share/ディレクトリ内
+    mkdir -p "$local_share_dir"
+    linkup $nvim_dir/.local/share/nvim $local_share_dir/nvim
+
+}

@@ -9,8 +9,8 @@ unpack_zoxide() {
 }
 
 setup_zoxide() {
-    log "$Tag_zoxide" "start setting..."
-  
+    log "$TAG_zoxide" "start setting..."
+
     # zoxideを展開してPathを通す
     unpack_zoxide
 

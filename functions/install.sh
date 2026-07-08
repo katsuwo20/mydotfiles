@@ -39,8 +39,8 @@ install_for_linux() {
     set_locale
 
     # binファイルのpathを設定
-    log "$TAG_install" "remove ~/.local/bin" # 既存の設定を削除
-    rm -rf ~/.local/bin
+    log "$TAG_install" "remove $HOME/.local/bin" # 既存の設定を削除
+    rm -rf "$HOME/.local/bin"
     log "$TAG_install" "Setting up bin files..."
     cd "$BIN_DIR"
     stow -v -t ~ local
@@ -48,4 +48,17 @@ install_for_linux() {
     # stow後のセットアップ（~/.local/bin が確定してから実行する必要があるもの）
     log "$TAG_install" "Running post-stow setup: nodejs.sh..."
     "$INSTALL_DIR/nodejs.sh"
+}
+
+
+# CF環境向けのインストール処理
+install_for_cf() {
+    local home_bin_dir="$HOME/.local/bin"
+    cd "$DOTFILES_DIR"
+
+    # binファイルのpathを設定
+    mkdir -p "$home_bin_dir"
+    log "$TAG_install" "Setting up bin files..."
+
+    linkup "$LOCAL_BIN_DIR" "$home_bin_dir"
 }

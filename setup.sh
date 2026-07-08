@@ -42,6 +42,40 @@ fi
 # 環境に応じて処理を変更
 case "$ENV" in
     "$ENV_CF")
+        # mydotfilesのシンボリックリンクをhomeディレクトリに作成
+        linkup_home
+
+        # CF環境向けのインストール処理を実行
+        install_for_cf
+
+        # zshの設定を行う
+        setup_zsh_cf
+
+        # tmuxの設定を行う
+        setup_tmux_cf
+
+        # vimの設定を行う
+        setup_vim_cf
+        setup_nvim_cf
+
+        # zoxideの設定を行う
+        setup_zoxide
+
+        # fzfの設定を行う
+        setup_fzf
+
+        # ripgrepの設定を行う
+        setup_ripgrep
+
+        # fdの設定を行う
+        setup_fd
+
+        # lazygitの設定を行う
+        setup_lazygit
+
+        # .configの設定を行う
+        setup_config_cf
+
         warn "env" "CF environment does not support this setup script."
         exit 0
         ;;
@@ -49,10 +83,7 @@ case "$ENV" in
         log "env" "Running in WSL environment. Proceeding with setup."
 
         # mydotfilesのシンボリックリンクをhomeディレクトリに作成
-        log "env" "create link to mydotfiles in home directory"
-        cd ${HOME}
-        rm -f mydotfiles
-        ln -s $DOTFILES_DIR
+        linkup_home
 
         # Linux環境向けのインストール処理を実行
         install_for_linux
@@ -69,10 +100,20 @@ case "$ENV" in
         setup_nvim
 
         # zoxideの設定を行う
-        unpack_zoxide
+        setup_zoxide
 
         # uvの設定を行う
-        unpack_uv
+        setup_uv
+
+        # gitの設定を行う
+        setup_git
+
+        # .configの設定
+        setup_config
+
+        # WSL上では、dotfiles側のVS Code設定をWindows側User設定へ同期
+        setup_vscode_user_files
+        create_vscode_symlink
         ;;
     "$ENV_WINDOWS")
         warn "env" "Windows environment does not support this setup script."
@@ -85,52 +126,10 @@ case "$ENV" in
 esac
 
 
-cd "$DOTFILES_DIR"
-
-log "git" "Applying git settings ..."
-stow -v -t ~ git
-
-log "git" "Setting up Git local configuration ..."
-LOCAL_GITCONFIG="$HOME/.gitconfig.local"
-if [ ! -f "$LOCAL_GITCONFIG" ]; then
-    read -p "Git user.name: " GIT_NAME
-    read -p "Git user.email: " GIT_EMAIL
-    cat <<EOF > "$LOCAL_GITCONFIG"
-[user]
-    name = $GIT_NAME
-    email = $GIT_EMAIL
-EOF
-    log "git" "Created $LOCAL_GITCONFIG"
-else
-    log "git" "Git local configuration already exists at $LOCAL_GITCONFIG"
-fi
-
-log "git" "Setting up ghq ..."
-mkdir -p "$HOME/ghq"
-git config --file "$HOME/.gitconfig.local" --unset-all ghq.root 2>/dev/null || true
-git config --file "$HOME/.gitconfig.local" --add ghq.root "$HOME/ghq"
-log "git" "ghq root set to $HOME/ghq"
-
-log "git" "Setting up git safe.directory ..."
-git config --file "$HOME/.gitconfig.local" --unset-all safe.directory 2>/dev/null || true
-git config --file "$HOME/.gitconfig.local" --add safe.directory "$HOME/ghq/*"
-log "git" "safe.directory set to $HOME/ghq"
-
-
-# Configの設定
-cd "$DOTFILES_DIR"
-log "config" "Setting up config ..."
-stow -v -t ~ config
-
-# WSL上では、dotfiles側のVS Code設定をWindows側User設定へ同期
-if [[ "$ENV" == "$ENV_WSL" ]]; then
-    setup_vscode_user_files
-    create_vscode_symlink
-fi
-
-
+# ====================================
+# 終了処理
+# ====================================
 # 最後に元のディレクトリに戻る
 cd "$DOTFILES_DIR"
 
 success "setup" "Setup completed successfully"
-log "setup" "Please restart WSL"

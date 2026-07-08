@@ -43,6 +43,7 @@ unpack_common() {
     local archive="${2:-$1}.tar.gz" #default =pack_name
     local extracted_dir
 
+    # packageのアーカイブが存在するか確認
     log "$tag" "get archive name"
     cd "$PACKAGES_DIR" || return 1
     if [ ! -f "$archive" ]; then
@@ -61,10 +62,12 @@ unpack_common() {
     cd "$LOCAL_DIR" || return 1
     [ -n "$extracted_dir" ] && rm -rf "$extracted_dir"
 
+    # packageを展開
     cd "$PACKAGES_DIR" || return 1
     log "$tag" "unpacking..."
     tar -xf "$archive" -C "$LOCAL_DIR" || return 1
 
+    # packageのbinディレクトリをPATHに追加
     log "$tag" "add it to the PATH"
 
     mkdir -p "$LOCAL_BIN_DIR" || return 1
@@ -74,4 +77,22 @@ unpack_common() {
     ln -s "$LOCAL_DIR/$extracted_dir/bin/$bin_name" "$bin_name"
 
     success "$tag" "$bin_name installed successfully"
+}
+
+# 安全にシンボリックリンクを作成する関数
+# $1 : ターゲットディレクトリ
+# $2 : リンク作成したいディレクトリ/リンク名
+linkup() {
+  local target_dir="$1"
+  local link_name="$2"
+
+    log "link" "create $target_dir link to $link_name"
+    if [ -L "$link_name" ]; then
+        rm -f "$link_name"
+        ln -s "$target_dir" "$link_name"
+    elif [ ! -e "$link_name" ]; then
+        ln -s "$target_dir" "$link_name"
+    else
+        warn "env" "$link_name is a real directory, skipping symlink creation"
+    fi
 }
