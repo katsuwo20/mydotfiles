@@ -75,9 +75,6 @@ case "$ENV" in
 
         # .configの設定を行う
         setup_config_cf
-
-        warn "env" "CF environment does not support this setup script."
-        exit 0
         ;;
     "$ENV_WSL")
         log "env" "Running in WSL environment. Proceeding with setup."
