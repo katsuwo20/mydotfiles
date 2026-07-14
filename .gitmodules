@@ -53,3 +53,6 @@
 [submodule "nvim/.config/nvim/pack/plugins/start/copilot-cmp"]
 	path = nvim/.config/nvim/pack/plugins/start/copilot-cmp
 	url = https://github.com/zbirenbaum/copilot-cmp
+[submodule "zsh/.zsh/plugins/fzf-tab"]
+	path = zsh/.zsh/plugins/fzf-tab
+	url = https://github.com/Aloxaf/fzf-tab.git
