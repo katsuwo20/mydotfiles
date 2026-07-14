@@ -29,3 +29,19 @@ setup_zsh() {
     # zshをデフォルトshellに設定
     set_zsh_default
 }
+
+
+# cf環境用
+setup_zsh_cf() {
+    local zsh_dir="$DOTFILES_DIR/zsh"
+
+    cd "$DOTFILES_DIR"
+    log "$TAG_zsh" "Applying zsh settings ..."
+    # ==============================================
+    # zshの設定をホームディレクトリにシンボリックリンク
+    # ==============================================
+    # .zshrc
+    linkup $zsh_dir/.zshrc $HOME/.zshrc
+    # .zshディレクトリ
+    linkup $zsh_dir/.zsh $HOME/.zsh
+}
