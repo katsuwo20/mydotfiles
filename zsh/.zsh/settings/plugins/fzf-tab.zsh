@@ -8,3 +8,6 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview \
     'ls --color=always -lah $realpath'
 zstyle ':fzf-tab:complete:z:*' fzf-preview \
     'ls --color=always -lah $realpath'
+
+zstyle ':fzf-tab:*' fzf-flags \
+    --ignore-case
