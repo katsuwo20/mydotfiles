@@ -24,8 +24,5 @@ fi
 # zshの設定を読み込む
 source ~/.zsh/settings/core/coresettings.zsh
 
-# pluginsを読み込む
-source ~/.zsh/plugins/fzf-tab/fzf-tab.plugin.zsh
-
-# pluginsの設定を読み込む
+# pluginsと設定を読み込む
 source ~/.zsh/settings/plugins/plugsettings.zsh
