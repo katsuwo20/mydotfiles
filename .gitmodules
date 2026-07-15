@@ -59,3 +59,6 @@
 [submodule "zsh/.zsh/plugins/zsh-autosuggestions"]
 	path = zsh/.zsh/plugins/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions.git
+[submodule "zsh/.zsh/plugins/fast-syntax-highlighting"]
+	path = zsh/.zsh/plugins/fast-syntax-highlighting
+	url = https://github.com/zdharma-continuum/fast-syntax-highlighting.git
