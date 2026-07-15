@@ -15,7 +15,6 @@ sudo apt install -y \
     zsh \
     git \
     curl \
-    fzf \
     stow \
     python3 \
     python3-venv \

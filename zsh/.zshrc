@@ -22,15 +22,7 @@ fi
 
 
 # zshの設定を読み込む
-source ~/.zsh/basic.zsh
-source ~/.zsh/completion.zsh
-source ~/.zsh/history.zsh
-source ~/.zsh/keybind.zsh
-source ~/.zsh/prompt.zsh
-source ~/.zsh/aliases.zsh
-source ~/.zsh/wsl.zsh
-source ~/.zsh/colors.zsh
-source ~/.zsh/env.zsh
-source ~/.zsh/ghq.zsh
-source ~/.zsh/local.zsh
-source ~/.zsh/functions.zsh
+source ~/.zsh/settings/core/coresettings.zsh
+
+# pluginsと設定を読み込む
+source ~/.zsh/settings/plugins/plugsettings.zsh

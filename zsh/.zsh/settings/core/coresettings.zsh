@@ -1,0 +1,13 @@
+# zshのコア設定を読み込む
+source ~/.zsh/settings/core/basic.zsh
+source ~/.zsh/settings/core/completion.zsh
+source ~/.zsh/settings/core/history.zsh
+source ~/.zsh/settings/core/keybind.zsh
+source ~/.zsh/settings/core/prompt.zsh
+source ~/.zsh/settings/core/aliases.zsh
+source ~/.zsh/settings/core/wsl.zsh
+source ~/.zsh/settings/core/colors.zsh
+source ~/.zsh/settings/core/env.zsh
+source ~/.zsh/settings/core/ghq.zsh
+source ~/.zsh/settings/core/local.zsh
+source ~/.zsh/settings/core/functions.zsh

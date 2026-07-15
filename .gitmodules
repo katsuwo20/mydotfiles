@@ -53,3 +53,12 @@
 [submodule "nvim/.config/nvim/pack/plugins/start/copilot-cmp"]
 	path = nvim/.config/nvim/pack/plugins/start/copilot-cmp
 	url = https://github.com/zbirenbaum/copilot-cmp
+[submodule "zsh/.zsh/plugins/fzf-tab"]
+	path = zsh/.zsh/plugins/fzf-tab
+	url = https://github.com/Aloxaf/fzf-tab.git
+[submodule "zsh/.zsh/plugins/zsh-autosuggestions"]
+	path = zsh/.zsh/plugins/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions.git
+[submodule "zsh/.zsh/plugins/fast-syntax-highlighting"]
+	path = zsh/.zsh/plugins/fast-syntax-highlighting
+	url = https://github.com/zdharma-continuum/fast-syntax-highlighting.git
