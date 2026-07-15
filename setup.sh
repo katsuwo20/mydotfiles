@@ -99,6 +99,9 @@ case "$ENV" in
         # zoxideの設定を行う
         setup_zoxide
 
+        # fzfの設定を行う
+        setup_fzf
+
         # uvの設定を行う
         setup_uv
 
