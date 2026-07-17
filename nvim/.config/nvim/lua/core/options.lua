@@ -4,15 +4,18 @@
 
 local opt = vim.opt
 
--- --- 表示系 ---
-opt.cursorline = true             -- 現在行を強調
-opt.showmatch = true              -- 対応する括弧を表示
-opt.laststatus = 2                -- ステータスライン常時表示
-opt.list = true                   -- 不可視文字表示
-opt.listchars = { tab = "▸ ", trail = "·", extends = "»", precedes = "«" }
-opt.termguicolors = true          -- gui colorをオフにする
-opt.number = true                 -- 行番号表示
-vim.cmd("colorscheme tokyonight") -- tokyonightのからスキームを適用
+-- VSCodeでは表示をVSCode側に任せる
+if not vim.g.vscode then
+	opt.cursorline = true             -- 現在行を強調
+	opt.showmatch = true              -- 対応する括弧を表示
+	opt.laststatus = 2                -- ステータスライン常時表示
+	opt.list = true                   -- 不可視文字表示
+	opt.listchars = { tab = "▸ ", trail = "·", extends = "»", precedes = "«" }
+	opt.termguicolors = true
+	opt.number = true                 -- 行番号表示
+	opt.wrap = false                  -- デフォルトで折り返さない
+	vim.cmd("colorscheme tokyonight") -- カラースキームを適用
+end
 
 -- --- 検索 ---
 opt.ignorecase = true             -- 大文字小文字無視
@@ -25,7 +28,6 @@ opt.backspace = { "indent", "eol", "start" }
 opt.autoindent = true
 opt.smartindent = true
 opt.hidden = true                 -- 未保存でも他バッファに移動可
-opt.wrap = false                  -- デフォルトで折り返さない
 
 opt.expandtab = true
 opt.tabstop = 2
@@ -40,11 +42,16 @@ opt.fileformats = { "unix", "dos", "mac" }
 -- --- ファイル関連 ---
 opt.backup = false
 opt.swapfile = false
-opt.autoread = true               -- 外部変更を自動再読込
-opt.undofile = true               -- 永続 undo
-opt.undodir = vim.fn.expand("~/.cache/nvim/undo")
+
+if not vim.g.vscode then
+	opt.autoread = true           -- 外部変更を自動再読込
+	opt.undofile = true           -- 永続 undo
+	opt.undodir = vim.fn.expand("~/.cache/nvim/undo")
+end
 
 -- --- コマンドライン/補完 ---
-opt.wildmenu = true
-opt.wildmode = "full"
-opt.showcmd = true
+if not vim.g.vscode then
+	opt.wildmenu = true
+	opt.wildmode = "full"
+	opt.showcmd = true
+end

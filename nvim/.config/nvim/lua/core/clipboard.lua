@@ -2,6 +2,11 @@
 -- クリップボード連携 (WSL)
 -- ===============================
 
+-- VSCode NeovimではVSCodeのClipboard APIをproviderとして使う
+if vim.g.vscode and vim.g.vscode_clipboard then
+	vim.g.clipboard = vim.g.vscode_clipboard
+end
+
 vim.opt.clipboard = "unnamedplus"
 
 -- if vim.fn.executable("powershell.exe") == 1 then
