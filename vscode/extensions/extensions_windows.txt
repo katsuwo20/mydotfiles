@@ -1,4 +1,5 @@
 asciidoctor.asciidoctor-vscode
+asvetliakov.vscode-neovim
 atlassian.atlascode
 donjayamanne.githistory
 eamodio.gitlens
@@ -26,4 +27,3 @@ ms-vscode.wasm-wasi-core
 mshr-h.veriloghdl
 redhat.vscode-yaml
 usernamehw.errorlens
-vscodevim.vim

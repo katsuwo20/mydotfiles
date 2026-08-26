@@ -1,30 +1,35 @@
 {
+  // ========================================
+  // 基本・セキュリティ
+  // ========================================
   "security.workspace.trust.enabled": false,
-  "files.autoGuessEncoding": true,
+  "security.allowedUNCHosts": ["wsl.localhost"],
 
-  "files.trimFinalNewlines": true, //最終行移行の無駄な行を削除
-  "files.insertFinalNewline": true, //最終行に改行を挿入する
-  "files.trimTrailingWhitespace": true, //行の末尾にある無駄な空白を削除
-  "breadcrumbs.enabled": true, //パンくずリスト表示
-  "workbench.tree.renderIndentGuides": "always", //ツリーのインデントガイド表示
-  "workbench.reduceMotion": "on", //ツリーのアニメーション表示
-
-  /// :
-  // proxy
-  "http.proxy": "http://proxy.kanto.sony.co.jp:10080",
-  "https.proxy": "https://proxy.kanto.sony.co.jp:10080",
-  // asciidoc
-  "asciidoc.asciidoctor_command": "asciidoctor -r asciidoctor-diagram -a outdir=.asciidoctor -a imagesdir=resources -a imagesoutdir=resources",
-  "asciidoc.preview.useEditorStyle": false,
-  "asciidoc.use_asciidoctor_js": false,
-
+  // ========================================
+  // ウィンドウ・表示
+  // ========================================
   "workbench.startupEditor": "none",
+  "workbench.editor.wrapTabs": true,
+  "workbench.tree.renderIndentGuides": "always",
+  "workbench.reduceMotion": "on",
+  "breadcrumbs.enabled": true,
   "editor.renderWhitespace": "all",
-  "python.analysis.extraPaths": [
-    "C:/Users/0107411026/Desktop/hoge/python/Concur/00.environment/Concur/Lib/site-packages",
-    "C:/Users/0107411026/Desktop/hoge/python/GetTempPass/00.environment/TempPass/Lib/site-packages",
-    "C:/Users/0107411026/Desktop/hoge/python/NoticeEvent_v2.2/00.environment/Outlook/Lib/site-packages",
-  ],
+  "diffEditor.maxComputationTime": 0,
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.enablePreviewFromQuickOpen": false,
+
+  // ========================================
+  // ファイル
+  // ========================================
+  "files.autoGuessEncoding": true,
+  "files.eol": "\n",
+
+  // ========================================
+  // ターミナル
+  // ========================================
+  "terminal.integrated.defaultProfile.windows": "PowerShell 7",
+  "terminal.integrated.allowChords": false,
+  "terminal.integrated.initialHint": false,
   "terminal.integrated.profiles.windows": {
     "PowerShell": {
       "source": "PowerShell",
@@ -47,18 +52,17 @@
       "path": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
     },
   },
-  "terminal.integrated.defaultProfile.windows": "PowerShell 7",
-  "diffEditor.maxComputationTime": 0,
-  "hexeditor.columnWidth": 16,
-  "hexeditor.showDecodedText": true,
-  "hexeditor.defaultEndianness": "little",
-  "hexeditor.inspectorType": "aside",
-  "workbench.editorAssociations": {
-    "*.bin": "hexEditor.hexedit",
-  },
-  "python.createEnvironment.trigger": "off",
-  "redhat.telemetry.enabled": true,
-  "atlascode.jira.enabled": false,
+
+  // ========================================
+  // ネットワーク・リモート接続
+  // ========================================
+  "http.proxy": "http://proxy.kanto.sony.co.jp:10080",
+  "https.proxy": "https://proxy.kanto.sony.co.jp:10080",
+  "remote.autoForwardPortsSource": "hybrid",
+
+  // ========================================
+  // 言語・フォーマッター
+  // ========================================
   "[dockercompose]": {
     "editor.insertSpaces": true,
     "editor.tabSize": 2,
@@ -68,94 +72,110 @@
   "[github-actions-workflow]": {
     "editor.defaultFormatter": "redhat.vscode-yaml",
   },
+
+  // Python
+  "python.createEnvironment.trigger": "off",
+
+  // PowerShell
+  "powershell.promptToUpdatePowerShell": false,
+
+  // ========================================
+  // 拡張機能・関連付け
+  // ========================================
   "extensions.experimental.affinity": {
     "asvetliakov.vscode-neovim": 1,
   },
+  "workbench.editorAssociations": {
+    "*.bin": "hexEditor.hexedit",
+  },
 
-  "workbench.editor.wrapTabs": true,
+  // ========================================
+  // VSCode Neovim
+  // ========================================
+  "vscode-neovim.useWSL": true,
+  "vscode-neovim.neovimExecutablePaths.linux": "/home/isono/.local/bin/nvim",
+  "vscode-neovim.afterInitConfig": [
+    "set cmdheight=999",
+  ],
+  "vscode-neovim.compositeKeys": {
+    "jj": {
+      "command": "vscode-neovim.escape",
+    },
+  },
+
+  // Insert以外（Normal・Visualなど）でNeovimへ渡すCtrlキー
+  "vscode-neovim.ctrlKeysForNormalMode": [
+    "d", // Ctrl+D: 半画面下へスクロール
+    "i", // Ctrl+I: ジャンプリストを進む（Tabと同じ）
+    "l", // Ctrl+L: 画面を再描画
+    "m", // Ctrl+M: Enterと同じ
+    "o", // Ctrl+O: ジャンプリストを戻る
+    "r", // Ctrl+R: Redo
+    "t", // Ctrl+T: タグスタックを戻る
+    "u", // Ctrl+U: 半画面上へスクロール
+    "w", // Ctrl+W: ウィンドウ操作のプレフィックス
+    "/", // Ctrl+/: NeovimへCtrl+/を送る
+    "]", // Ctrl+]: タグ・定義へジャンプ
+  ],
+
+  // InsertモードでNeovimへ渡すCtrlキー
+  "vscode-neovim.ctrlKeysForInsertMode": [
+    "a", // Ctrl+A: 直前に挿入した文字列を再挿入
+    "d", // Ctrl+D: インデントを1段減らす
+    "j", // Ctrl+J: 改行
+    "m", // Ctrl+M: Enterと同じ
+    "o", // Ctrl+O: Normalモードのコマンドを1回だけ実行
+    "r", // Ctrl+R: レジスタの内容を挿入
+    "t", // Ctrl+T: インデントを1段増やす
+    "u", // Ctrl+U: 行頭からカーソル直前まで削除
+    "w", // Ctrl+W: カーソル直前の単語を削除
+  ],
+
+  // ========================================
+  // GitHub Copilot・Chat
+  // ========================================
   "github.copilot.nextEditSuggestions.enabled": true,
-
-  "terminal.integrated.allowChords": false,
-
-  // ****************************
-  // GitHub Copilotの設定
-  // ****************************
-  // Agengt Modeを有効にする
-  "chat.agent.enabled": true,
-  // Agent Modeでの最大リクエスト数を設定（必要に応じて調整）
-  "chat.agent.maxRequests": 1000000,
-
-  "workbench.colorTheme": "Dark+",
-  "chat.viewSessions.orientation": "stacked",
   "github.copilot.enable": {
     "*": true,
     "plaintext": false,
     "markdown": false,
     "scminput": false,
-    "systemverilog": true
+    "systemverilog": true,
   },
-  "chat.tools.terminal.autoApprove": {
-    "/^cd \"c:\\\\Users\\\\0107411026\\\\Desktop\\\\hoge\\\\python\\\\OutlookControl\\\\00\\.environment\" ; if \\(-not \\(Test-Path \"OutlookControlEnv\"\\)\\) \\{ python -m venv OutlookControlEnv \\} ; & \"\\.\\\\OutlookControlEnv\\\\Scripts\\\\Activate\\.ps1\" ; pip install -r requirements\\.txt 2>&1 \\| Select-Object -Last 20$/": {
-      "approve": true,
-      "matchCommandLine": true,
-    },
-  },
+  "chat.agent.enabled": true,
+  "chat.agent.maxRequests": 1000000,
+  "chat.viewSessions.orientation": "stacked",
 
-  "vim.vimrc.enable": true,
-  "vim.vimrc.path": "C:\\Vim\\.vimrc",
-  "vim.leader": " ",
-  "vim.useSystemClipboard": true,
-  "vim.handleKeys": {
-    "<Space>": true,
-    "<C-f>": false,
-    "<C-c>": false,
-    "<C-a>": false,
-    "<C-v>": false,
-    "<C-x>": false,
-    "<C-h>": false,
-    "<C-y>": false,
-    "<C-z>": false,
-    "<C-b>": false,
-    "<C-e>": false,
-    "<C-P>": false,
-  },
-
-  "vim.easymotion": true,
-
-  "vim.normalModeKeyBindingsNonRecursive": [
-    {
-      "before": ["<leader>", "s"],
-      "after": ["<leader>", "<leader>", "s"],
-    },
-    {
-      "before": ["<leader>", "w"],
-      "after": ["<leader>", "<leader>", "w"],
-    },
-    {
-      "before": ["<leader>", "e"],
-      "after": ["<leader>", "<leader>", "e"],
-    },
-    {
-      "before": ["<leader>", "f"],
-      "after": ["<leader>", "<leader>", "f"],
-    },
-  ],
-
-  "atlascode.bitbucket.enabled": false,
+  // ========================================
+  // Git・GitLab・Atlassian
+  // ========================================
   "gitlens.ai.model": "vscode",
   "gitlens.ai.vscode.model": "copilot:gpt-4.1",
-  "files.eol": "\n",
-  "security.allowedUNCHosts": ["wsl.localhost"],
-  "powershell.promptToUpdatePowerShell": false,
-  "python.defaultInterpreterPath": "./50.Testing/31.IntegrationTest_CCSim/.venv/Scripts/python.exe",
-  "gitlab.duoCodeSuggestions.enabled": false,
-  "remote.autoForwardPortsSource": "hybrid",
-  "terminal.integrated.initialHint": false,
+  "atlascode.jira.enabled": false,
+  "atlascode.bitbucket.enabled": false,
 
-  "files.associations": {
-    "*.tb": "systemverilog",
-    "*.inc": "systemverilog",
+  // ========================================
+  // AsciiDoc
+  // ========================================
+  "asciidoc.asciidoctor_command": "asciidoctor -r asciidoctor-diagram -a outdir=.asciidoctor -a imagesdir=resources -a imagesoutdir=resources",
+  "asciidoc.preview.useEditorStyle": false,
+  "asciidoc.use_asciidoctor_js": false,
+
+  // ========================================
+  // Hex Editor
+  // ========================================
+  "hexeditor.columnWidth": 16,
+  "hexeditor.showDecodedText": true,
+  "hexeditor.defaultEndianness": "little",
+  "hexeditor.inspectorType": "aside",
+  "editor.trimAutoWhitespace": false,
+  "workbench.colorTheme": "Dark+",
+  "chat.tools.urls.autoApprove": {
+    "https://code.visualstudio.com": true,
+    "https://github.com/microsoft/vscode/wiki/*": true,
+    "https://www.tool.sony.biz": {
+      "approveRequest": true,
+      "approveResponse": false
+    }
   },
-
-
 }

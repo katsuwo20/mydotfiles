@@ -1,5 +1,8 @@
 // 既定値を上書きするには、このファイル内にキー バインドを挿入します
 [
+    // ==========================
+    // ターミナル関連のキーバインド
+    // ==========================
     {
         // ターミナルを開く/閉じる
         "key" : "ctrl+t",
@@ -19,25 +22,59 @@
     },
 
     {
+        // Ctrl+Jによる下部パネルの表示/非表示を無効化
         "key": "ctrl+j",
         "command": "-workbench.action.togglePanel"
     },
     {
+        // Ctrl+Kによるターミナルのクリアを無効化
         "key": "ctrl+k",
         "command": "-workbench.action.terminal.clear"
     },
     {
+        // ターミナル内ではCtrl+Gによる「指定行へ移動」を無効化
         "key": "ctrl+g",
         "command": "-workbench.action.gotoLine",
         "when": "terminalFocus"
     },
     {
+        // ターミナルへCtrl+G（BEL: \u0007）を送信
         "key": "ctrl+g",
         "command": "workbench.action.terminal.sendSequence",
         "args": {
-        "text": "\u0007"
+            "text": "\u0007"
         },
         "when": "terminalFocus"
-    }
+    },
 
+    // ==========================
+    // エディタ関連のキーバインド
+    // ==========================
+    // Ctrl+Lで次のエディタへ移動（NeovimのInsertモードでは無効化）
+    {
+        "key": "ctrl+l",
+        "command":"workbench.action.nextEditor",
+        "when": "!terminalFocus && !sideBarFocus && neovim.mode != insert"
+    },
+    {
+        "key": "ctrl+h",
+        "command": "workbench.action.previousEditor",
+        "when": "!terminalFocus && !sideBarFocus && neovim.mode !== insert '"
+    },
+
+    // ==========================
+    // LSP関連のキーバインド
+    // ==========================
+    // 定義へ移動
+    // {
+    //     "key": "g d",
+    //     "command": "editor.action.revealDefinition",
+    //     "when": "neovim.mode == normal && editorHasDefinitionProvider && editorTextFocus"
+    // },
+    // // 元の場所に戻る
+    // {
+    //     "key": "g b",
+    //     "command": "workbench.action.navigateBack",
+    //     "when": "neovim.mode == normal && editorTextFocus",
+    // },
 ]
