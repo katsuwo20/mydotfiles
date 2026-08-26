@@ -43,6 +43,9 @@ setup_nvim() {
     cd "$DOTFILES_DIR"
     # nvimの設定をホームディレクトリにシンボリックリンク
     stow -v -t ~ nvim
+
+    log "$TAG_vim" "Installing Neovim Tree-sitter parsers ..."
+    bash "$DOTFILES_DIR/install/nvim_parsers.sh"
 }
 
 # ==========================================

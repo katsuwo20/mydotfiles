@@ -38,6 +38,10 @@ cd ~/ghq/github.com/katsuwo20/mydotfiles
 
 ## 4. Neovim プラグイン運用方針
 
+新規の Linux/WSL 環境では、VS Code・ghq・git を事前に用意した後、リポジトリ直下で `./setup.sh` を実行します。setup script が Neovim の実行環境、Node.js、LSP、Tree-sitter CLI、必要な parser とプラグインの submodule をセットアップします。
+
+Tree-sitter parser は Neovim の起動時にはインストールせず、セットアップ時に一度だけ導入します。そのため、通常の `v .` 起動時にダウンロードやコンパイルのメッセージは表示されません。
+
 このリポジトリでは、Neovim プラグインを次のディレクトリに submodule として配置します。
 
 - `nvim/.config/nvim/pack/plugins/start/`

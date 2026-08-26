@@ -2,13 +2,12 @@
 
 local lsp = require("lsp.util")
 
-vim.lsp.config["clangd"] = {
-  capabilities = lsp.capabilities,
-  cmd ={ "clangd"},
-  filetypes ={
-    "c",
-    "cpp",
-  },
-}
+if vim.fn.executable("clangd") == 1 then
+  vim.lsp.config["clangd"] = {
+    capabilities = lsp.capabilities,
+    cmd = { "clangd" },
+    filetypes = { "c", "cpp" },
+  }
 
-vim.lsp.enable("clangd")
+  vim.lsp.enable("clangd")
+end

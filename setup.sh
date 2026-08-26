@@ -120,8 +120,19 @@ case "$ENV" in
         exit 0
         ;;
     "$ENV_LINUX")
-        warn "env" "Linux environment does not support this setup script."
-        exit 0
+        log "env" "Running in Linux environment. Proceeding with setup."
+
+        linkup_home
+        install_for_linux
+        setup_zsh
+        setup_tmux
+        setup_vim
+        setup_nvim
+        setup_zoxide
+        setup_fzf
+        setup_uv
+        setup_git
+        setup_config
         ;;
 esac
 

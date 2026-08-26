@@ -21,11 +21,17 @@ _link_node_bins() {
   done
 }
 
+_install_node_tools() {
+  log "$TAG" "Installing bash-language-server..."
+  "$NODE_INSTALL_DIR/bin/npm" install --global bash-language-server
+}
+
 # 既にインストール済みの場合はリンクを張り直してバージョン確認
 if [[ -d "$NODE_INSTALL_DIR/bin" ]]; then
   _link_node_bins
   current=$("$NODE_INSTALL_DIR/bin/node" --version | sed 's/v//' | cut -d. -f1)
   if [[ "$current" -ge "$NODE_MAJOR" ]]; then
+    _install_node_tools
     success "$TAG" "Node.js $("$NODE_INSTALL_DIR/bin/node" --version) already installed (>= v${NODE_MAJOR})"
     exit 0
   fi
@@ -56,5 +62,6 @@ tar -xf "/tmp/${ARCHIVE}" --strip-components=1 -C "$NODE_INSTALL_DIR"
 rm "/tmp/${ARCHIVE}"
 
 _link_node_bins
+_install_node_tools
 
 success "$TAG" "Node.js ${NODE_VERSION} installed to ${NODE_INSTALL_DIR}"
