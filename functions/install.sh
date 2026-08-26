@@ -39,10 +39,9 @@ install_for_linux() {
     set_locale
 
     # binファイルのpathを設定
-    log "$TAG_install" "remove $HOME/.local/bin" # 既存の設定を削除
-    rm -rf "$HOME/.local/bin"
     log "$TAG_install" "Setting up bin files..."
     cd "$BIN_DIR"
+    stow -D -v -t ~ local || true
     stow -v -t ~ local
 
     # stow後のセットアップ（~/.local/bin が確定してから実行する必要があるもの）
