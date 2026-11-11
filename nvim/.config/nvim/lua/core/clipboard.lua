@@ -7,6 +7,11 @@ if vim.g.vscode and vim.g.vscode_clipboard then
 	vim.g.clipboard = vim.g.vscode_clipboard
 end
 
+-- WSL以外のtmux内では、win32yank.exe等が誤検出されてもtmuxバッファ経由で共有する
+if not vim.g.vscode and vim.env.TMUX and vim.fn.has("wsl") == 0 then
+	vim.g.clipboard = "tmux"
+end
+
 vim.opt.clipboard = "unnamedplus"
 
 -- if vim.fn.executable("powershell.exe") == 1 then
