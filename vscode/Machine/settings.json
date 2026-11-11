@@ -15,8 +15,8 @@
   "breadcrumbs.enabled": true,
   "editor.renderWhitespace": "all",
   "diffEditor.maxComputationTime": 0,
-  "workbench.editor.enablePreview": false,
-  "workbench.editor.enablePreviewFromQuickOpen": false,
+  "workbench.editor.enablePreview": true,
+  "workbench.editor.enablePreviewFromQuickOpen": true,
 
   // ========================================
   // ファイル
@@ -136,15 +136,16 @@
   // ========================================
   "github.copilot.nextEditSuggestions.enabled": true,
   "github.copilot.enable": {
-    "*": true,
+    "*": false,
     "plaintext": false,
     "markdown": false,
     "scminput": false,
-    "systemverilog": true,
+    "systemverilog": false
   },
   "chat.agent.enabled": true,
   "chat.agent.maxRequests": 1000000,
   "chat.viewSessions.orientation": "stacked",
+  "github.copilot.chat.localeOverride": "ja",
 
   // ========================================
   // Git・GitLab・Atlassian
