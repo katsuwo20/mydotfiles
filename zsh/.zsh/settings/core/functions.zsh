@@ -40,7 +40,7 @@ if [[ "$ENV" == "CF" ]]; then
     command bsub -Is -q re8int_full "$@"
   }
   verisium() {
-    bsub_int verisium -debug -memlimit 16G -db "$1"
+    bsub verisium -debug -memlimit 32G -db "$1"
   }
 
   # vscode実行コマンド
