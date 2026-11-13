@@ -14,6 +14,7 @@ apt_packages=(
     locales
     zsh
     git
+    git-lfs
     curl
     stow
     python3
